@@ -32,7 +32,7 @@ public class HistoryTransactionController {
     CommonResponseGenerator commonResponseGenerator;
 
     @GetMapping(value = "/user/{uuid_user}")
-    @Operation(description = "Menampilkan Users Transaksi")
+    @Operation(description = "Show All Transaction Users ")
     public CommonResponse<List<HistoryTransactionEntity>> getHistory(@PathVariable UUID uuid_user){
         try {
             List<HistoryTransactionEntity> historyTransaction = historyTransactionService.searchHistoryUsers(uuid_user);
@@ -49,7 +49,7 @@ public class HistoryTransactionController {
         }
     }
     @GetMapping(value = "/date/{departure_date}/{uuid_user}")
-    @Operation(description = "Menampilkan Tanggal Transaksi")
+    @Operation(description = "Show All Transaction User By Date")
     public CommonResponse<List<HistoryTransactionEntity>> getHistory(@PathVariable Date departure_date, @PathVariable UUID uuid_user){
         try {
             List<HistoryTransactionEntity> historyTransaction = historyTransactionService.searchHistoryByDateAndUUIDUsers(departure_date,uuid_user);
@@ -64,8 +64,8 @@ public class HistoryTransactionController {
             return commonResponseGenerator.failedResponse(e.getMessage());
         }
     }
-    @GetMapping(value = "/UUID/{uuid_user}/{uuid_history}")
-    @Operation(description = "Menampilkan Tanggal Transaksi")
+    @GetMapping(value = "/uuid/{uuid_user}/{uuid_history}")
+    @Operation(description = "Show Specific User Transaction")
     public CommonResponse<List<HistoryTransactionEntity>> getHistory(@PathVariable UUID uuid_user, @PathVariable UUID uuid_history){
         try {
             List<HistoryTransactionEntity> historyTransaction = historyTransactionService.searchHistoryByUUIDUserAndHistory(uuid_user,uuid_history);
@@ -81,11 +81,11 @@ public class HistoryTransactionController {
             return commonResponseGenerator.failedResponse(e.getMessage());
         }
     }
-    @GetMapping(value = "/Total/{uuid_users}/{created_at}")
-    @Operation(description = "Menampilkan Tanggal Transaksi")
-    public CommonResponse<List<TransactionSummaryResponse>> getPriceAndTotalPassanger(@PathVariable UUID uuid_users, @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime created_at) {
+    @GetMapping(value = "/total/{uuid_user}/{created_at}")
+    @Operation(description = "Show Total Price And Total Passenger")
+    public CommonResponse<List<TransactionSummaryResponse>> getPriceAndTotalPassenger(@PathVariable UUID uuid_user, @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime created_at) {
         try {
-            List<TransactionSummaryResponse> historyTransaction = historyTransactionService.SearchPriceAndTotalPassanger(uuid_users, created_at);
+            List<TransactionSummaryResponse> historyTransaction = historyTransactionService.SearchPriceAndTotalPassanger(uuid_user, created_at);
             log.info(String.valueOf(historyTransaction));
             return commonResponseGenerator.succsesResponse(historyTransaction, "Sukses Mencari Jadwal Transaction");
         } catch (Exception e) {

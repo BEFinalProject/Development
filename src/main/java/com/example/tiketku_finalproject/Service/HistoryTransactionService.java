@@ -1,10 +1,8 @@
 package com.example.tiketku_finalproject.Service;
 
 import com.example.tiketku_finalproject.Model.HistoryTransactionEntity;
-import com.example.tiketku_finalproject.Model.SchedulesEntity;
 import com.example.tiketku_finalproject.Model.TempTransactionEntity;
 import com.example.tiketku_finalproject.Repository.HistoryTransactionRepository;
-import com.example.tiketku_finalproject.Repository.SchedulesRepository;
 import com.example.tiketku_finalproject.Repository.TempTransactionRepository;
 import com.example.tiketku_finalproject.Repository.UsersRepository;
 import com.example.tiketku_finalproject.Response.TransactionSummaryResponse;
@@ -77,8 +75,6 @@ public class HistoryTransactionService {
     }
 
     public HistoryTransactionEntity updateDataHistory(HistoryTransactionEntity historyTransaction){
-//        TempTransactionEntity updateTempTranscation = tempTransactionRepository.findById(historyTransaction.getTransaction_uid()).get();
-//        updateTempTranscation.
 
         TempTransactionEntity transaction = tempTransactionRepository.getReferenceById(historyTransaction.getUuid_history());
         HistoryTransactionEntity historyTransactionExists = historyTransactionRepository.findById(historyTransaction.getUuid_history()).orElse(null);

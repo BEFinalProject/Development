@@ -37,9 +37,6 @@ public class SchedulesService {
         return schedulesRepository.findById(uuidSchedules);
     }
 
-//    public List<SchedulesEntity> searchTiket(String departure_city, String arrival_city, Date departure_date, Integer total_passanger) {
-//        return schedulesRepository.searching(departure_city, arrival_city,departure_date, total_passanger);
-//    }
     public List<SchedulesEntity> searchTiket(String departure_city, String arrival_city, Date departure_date, Integer total_passenger) {
         List<Object[]> results = schedulesRepository.searching(departure_city, arrival_city, departure_date, total_passenger);
         List<SchedulesEntity> schedules = new ArrayList<>();
@@ -47,38 +44,10 @@ public class SchedulesService {
         for (Object[] result : results) {
             SchedulesEntity schedule = new SchedulesEntity();
             schedule.setUuid_schedules((UUID) result[0]);
-
-            // Set properties from other indices as well
-            // ...
             schedules.add(schedule);
         }
 
         return schedules;
     }
-
-    /*public void resetLimits() {
-        schedulesRepository.resetLimit();
-    }*/
-
-//    public List<SchedulesEntity> searchTiket(String departure_city, String arrival_city, Date departure_date, Integer total_passenger) {
-//        List<Object[]> results = schedulesRepository.searching(departure_city, arrival_city, departure_date, total_passenger);
-//        List<SchedulesEntity> schedules = new ArrayList<>();
-//
-//        for (Object[] result : results) {
-//            SchedulesEntity schedule = new SchedulesEntity();
-//            schedule.setUuid_schedules((UUID) result[0]);
-//
-//            RoutesEntity routes = new RoutesEntity();
-//            routes.setDeparture_city((String) result[1]);
-//            routes.setArrival_city((String) result[2]);
-//            routes.setDeparture_date((Date) result[3]);
-//            schedule.setLimits((Integer) result[4]);
-//            // Set other properties of SchedulesEntity
-//
-//            schedules.add(schedule);
-//        }
-//
-//        return schedules;
-//    }
 
 }
