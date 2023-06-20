@@ -130,12 +130,12 @@ public class UserController {
         }
     }
 
-    @GetMapping(value = "/findUser/{id_user}") //yang ada di dalam {} disamakan dengan
+    @GetMapping(value = "/findUser/{uuid_user}") //yang ada di dalam {} disamakan dengan
     @Operation(description = "Find Users By Id")
     //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public CommonResponse<UsersEntity> getById(@PathVariable UUID id_user){ // yang ini "id_user"
+    public CommonResponse<UsersEntity> getById(@PathVariable UUID uuid_user){ // yang ini "id_user"
         try {
-            UsersEntity user = us.getById(id_user);
+            UsersEntity user = us.getById(uuid_user);
             log.info(String.valueOf(user),"Sukses Mencari Data " + user.getUuid_user());
             return urg.succsesResponse(user,"Sukses Mencari Data " + user.getUuid_user());
         }
@@ -163,12 +163,12 @@ public class UserController {
 
     }
 
-    @DeleteMapping(value = "/deleteUser/{id_user}")
+    @DeleteMapping(value = "/deleteUser/{uuid_user}")
     @Operation(description = "Delete User By Id")
     //@PreAuthorize("hasAuthority('ROLE_USERS')")
-    public CommonResponse<UsersEntity> deleteUser(@PathVariable UUID id_user){
+    public CommonResponse<UsersEntity> deleteUser(@PathVariable UUID uuid_user){
         try {
-            UsersEntity user = us.delUser(id_user);
+            UsersEntity user = us.delUser(uuid_user);
             log.info("Sukses Menghapus Data " + user.getUuid_user());
             return urg.succsesResponse(user, "Sukses Menghapus Data " + user.getUuid_user());
         }

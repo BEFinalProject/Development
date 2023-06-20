@@ -62,6 +62,6 @@ public class AirportsController {
         }catch (Exception e){
             log.warn(String.valueOf(e));
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to delete airport", e);
-        }
-    }
+        }
+    }
 }

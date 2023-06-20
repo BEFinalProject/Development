@@ -35,5 +35,10 @@ public class AirportsService {
         AirportsEntity deleteAirport = airportsRepository.findById(param).get();
         airportsRepository.deleteById(param);
         return deleteAirport;
+<<<<<<< HEAD
     }
 }
+=======
+    }
+}
+>>>>>>> 8ed744674ea6345c93d843b5d3c3de566e2b5edd
