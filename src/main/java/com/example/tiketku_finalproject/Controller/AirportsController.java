@@ -24,7 +24,7 @@ public class AirportsController {
     CommonResponseGenerator commonResponseGenerator;
 
     @PostMapping("/addAirport")
-    @Operation(description = "Adds a new Airport To Database")
+    @Operation(description = "Adds a new Airport to database")
     public CommonResponse<AirportsEntity> addAirports(@RequestBody AirportsEntity param){
         try {
             AirportsEntity airportsEntity = airportsService.addAirport(param);
@@ -37,7 +37,7 @@ public class AirportsController {
     }
 
     @PutMapping("/updateAirport")
-    @Operation(description = "Update Airport From Database")
+    @Operation(description = "Update Airport from database")
     public CommonResponse<AirportsEntity> updateAirport(@RequestBody AirportsEntity param){
         try {
             AirportsEntity airportsEntity = airportsService.updateAirports(param);
@@ -50,7 +50,7 @@ public class AirportsController {
     }
 
     @DeleteMapping("/deleteAirport/{iata_code}")
-    @Operation(description = "Delete Airports From Database")
+    @Operation(description = "Delete Airports from database")
     public CommonResponse<AirportsEntity> deleteAirport(@PathVariable String iata_code){
         try{
             AirportsEntity airportsEntity = airportsService.deleteAirports(iata_code);
