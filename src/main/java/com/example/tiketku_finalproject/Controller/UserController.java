@@ -42,7 +42,7 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @PostMapping(value = "/Login")
+    @PostMapping(value = "/login")
     @Operation(description = "Login")
     public CommonResponse<String> authenticateAndGetToken(@RequestBody AuthRequest authRequest){
         try{
@@ -66,7 +66,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("/Register")
+    @PostMapping("/register")
     @Operation(description = "Register")
     public CommonResponse<UsersEntity> addUsers(@RequestBody RegisterRequest param) {
         try {
@@ -87,7 +87,7 @@ public class UserController {
         }
     }
 
-    @PutMapping("/ResetPassword")
+    @PutMapping("/resetPassword")
     @Operation(description = "Reset Password")
     public CommonResponse<UsersEntity> validatePassword(@RequestBody ResetPasswordRequest resetPasswordRequest){
         try {
