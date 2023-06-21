@@ -105,51 +105,128 @@ public class TempTransactionController {
 
     @PutMapping(value = "/checkout")
     @Operation(description = "Checkout Transaction")
-    public CommonResponse<TempTransactionEntity> checkoutTransaction(@RequestBody CheckoutTransactionResponse param){
+    public CommonResponse<List<TempTransactionEntity>> checkoutTransaction(@RequestBody List<CheckoutTransactionResponse> param) {
         try {
-            TempTransactionEntity tempTransaction = new TempTransactionEntity();
-            tempTransaction.setUuid_transaction(param.getUuid_transaction());
-            tempTransaction.setTitle(param.getTitle());
-            tempTransaction.setFull_name(param.getFull_name());
-            tempTransaction.setGiven_name(param.getGiven_name());
-            tempTransaction.setBirth_date(param.getBirth_date());
-            tempTransaction.setId_card(param.getId_card());
-            TempTransactionEntity tempTransactionEntity = tempTransactionService.updateTempData(tempTransaction);
+            List<TempTransactionEntity> tempTransactionList = new ArrayList<>();
 
-            HistoryTransactionEntity historyTransaction = new HistoryTransactionEntity();
-            historyTransaction.setUuid_history(tempTransactionEntity.getUuid_transaction());
-            log.info(String.valueOf(historyTransaction));
-            HistoryTransactionEntity saveHistory = historyTransactionService.updateDataHistory(historyTransaction);
+            for (CheckoutTransactionResponse checkoutResponse : param) {
+                TempTransactionEntity tempTransaction = new TempTransactionEntity();
+                tempTransaction.setUuid_transaction(checkoutResponse.getUuid_transaction());
+                tempTransaction.setTitle(checkoutResponse.getTitle());
+                tempTransaction.setFull_name(checkoutResponse.getFull_name());
+                tempTransaction.setGiven_name(checkoutResponse.getGiven_name());
+                tempTransaction.setBirth_date(checkoutResponse.getBirth_date());
+                tempTransaction.setId_card(checkoutResponse.getId_card());
+                TempTransactionEntity tempTransactionEntity = tempTransactionService.updateTempData(tempTransaction);
 
-            log.info(String.valueOf(tempTransaction));
-            log.info(String.valueOf(tempTransactionEntity), "Successfully updated " + param.getFull_name());
-            return commonResponseGenerator.succsesResponse(tempTransactionEntity, "Successfully updated " + param.getUuid_transaction());
-        }catch (Exception e){
+                HistoryTransactionEntity historyTransaction = new HistoryTransactionEntity();
+                historyTransaction.setUuid_history(tempTransactionEntity.getUuid_transaction());
+                log.info(String.valueOf(historyTransaction));
+                HistoryTransactionEntity saveHistory = historyTransactionService.updateDataHistory(historyTransaction);
+
+                log.info(String.valueOf(tempTransaction));
+                log.info(String.valueOf(tempTransactionEntity), "Successfully updated " + checkoutResponse.getFull_name());
+
+                tempTransactionList.add(tempTransactionEntity);
+            }
+
+            return commonResponseGenerator.succsesResponse(tempTransactionList, "Successfully updated transactions");
+        } catch (Exception e) {
             log.warn(String.valueOf(e));
             return commonResponseGenerator.failedResponse(e.getMessage());
         }
     }
 
+//    @PutMapping(value = "/cancelCheckout")
+//    @Operation(description = "Cancel Checkout")
+//    public CommonResponse<List<TempTransactionEntity>> cancelCheckout(@RequestBody List<CancelAndRefundCheckoutResponse> param) {
+//        try {
+//            List<TempTransactionEntity> transactionEntities = new ArrayList<>();
+//            List<SchedulesEntity> schedulesEntities = new ArrayList<>();
+//            for (CancelAndRefundCheckoutResponse cancelAndRefundCheckoutResponse : param) {
+//                TempTransactionEntity tempTransaction = new TempTransactionEntity();
+//                tempTransaction.setUuid_transaction(cancelAndRefundCheckoutResponse.getUuid_transaction());
+//                transactionEntities.add(tempTransaction);
+//
+//                Optional<SchedulesEntity> optionalSchedulesEntity = schedulesService.getByUuidSchedules(tempTransaction.getUuid_transaction());
+//
+//                if (optionalSchedulesEntity.isPresent()) {
+//                    SchedulesEntity schedulesEntity = optionalSchedulesEntity.get();
+//                    int updatedLimits = schedulesEntity.getLimits() + 1;
+//
+//                    if (updatedLimits < 1 || updatedLimits > 30) {
+//                        String message = "Limit exceeded. Data not saved for TempTransaction with UUID: " + tempTransaction.getUuid_transaction();
+//                        log.info(message);
+//                        throw new Exception(message);
+//                    } else {
+//                        schedulesEntity.setLimits(updatedLimits);
+//                        schedulesEntities.add(schedulesEntity);
+//                        log.info(String.valueOf(schedulesEntities));
+//
+//                        List<TempTransactionEntity> savedTempTransactions = tempTransactionService.addTransaction(Collections.singletonList(tempTransaction));
+//                        TempTransactionEntity savedTempTransaction = savedTempTransactions.get(0);
+//                        tempTransaction.setUuid_transaction(savedTempTransaction.getUuid_transaction());
+//                    }
+//                }
+//            }
+//
+//            List<HistoryTransactionEntity> historyTransactions = new ArrayList<>();
+//            for (TempTransactionEntity savedTransaction : transactionEntities) {
+//                HistoryTransactionEntity historyTransaction = new HistoryTransactionEntity();
+//                historyTransaction.setUuid_history(savedTransaction.getUuid_transaction());
+//                historyTransactions.add(historyTransaction);
+//            }
+//            List<HistoryTransactionEntity> savedHistory = historyTransactionService.saveDataHistory(historyTransactions);
+//
+//            // Save schedulesEntities only if there are valid data
+//            if (!schedulesEntities.isEmpty()) {
+//                List<SchedulesEntity> savedLimitUp = schedulesService.saveDataLimit(schedulesEntities);
+//
+//                // Remove TempTransactionEntity entries for which the limit was exceeded
+//                transactionEntities.removeIf(tempTransaction -> {
+//                    for (SchedulesEntity schedulesEntity : savedLimitUp) {
+//                        if (tempTransaction.getUuid_transaction().equals(schedulesEntity.getUuid_schedules())) {
+//                            return false;
+//                        }
+//                    }
+//                    return true;
+//                });
+//            }
+//            log.info(String.valueOf(transactionEntities));
+//            return commonResponseGenerator.succsesResponse(transactionEntities, "Sukses Update Data");
+//        } catch (Exception e) {
+//            log.warn(String.valueOf(e));
+//            return commonResponseGenerator.failedResponse(e.getMessage());
+//        }
+//    }
+
+
 
     @PutMapping(value = "/cancelCheckout")
     @Operation(description = "Cancel Checkout")
-    public CommonResponse<TempTransactionEntity> cancelCheckout(@RequestBody CancelAndRefundCheckoutResponse param) {
+    public CommonResponse<List<TempTransactionEntity>> cancelCheckout(@RequestBody List<CancelAndRefundCheckoutResponse> param) {
         try {
-            HistoryTransactionEntity historyTransaction = new HistoryTransactionEntity();
-            historyTransaction.setUuid_history(param.getUuid_transaction());
-            HistoryTransactionEntity savedHistory = historyTransactionService.cancelOrder(historyTransaction);
+            List<TempTransactionEntity> updatedTempTransactions = new ArrayList<>();
 
-            TempTransactionEntity tempTransaction = new TempTransactionEntity();
-            tempTransaction.setUuid_transaction(savedHistory.getUuid_history());
-            tempTransaction.setTitle(savedHistory.getTitle());
-            tempTransaction.setFull_name(savedHistory.getFull_name());
-            tempTransaction.setGiven_name(savedHistory.getGiven_name());
-            tempTransaction.setBirth_date(savedHistory.getBirth_date());
-            tempTransaction.setId_card(savedHistory.getId_card());
-            TempTransactionEntity updatedTempTransaction = tempTransactionService.updateTempData(tempTransaction);
+            for (CancelAndRefundCheckoutResponse cancelAndRefundCheckoutResponse : param) {
+                HistoryTransactionEntity historyTransaction = new HistoryTransactionEntity();
+                historyTransaction.setUuid_history(cancelAndRefundCheckoutResponse.getUuid_transaction());
+                HistoryTransactionEntity savedHistory = historyTransactionService.cancelOrder(historyTransaction);
 
-            log.info("Successfully updated " + param.getUuid_transaction());
-            return commonResponseGenerator.succsesResponse(updatedTempTransaction, "Successfully updated status to canceled");
+                TempTransactionEntity tempTransaction = new TempTransactionEntity();
+                tempTransaction.setUuid_transaction(savedHistory.getUuid_history());
+                tempTransaction.setTitle(savedHistory.getTitle());
+                tempTransaction.setFull_name(savedHistory.getFull_name());
+                tempTransaction.setGiven_name(savedHistory.getGiven_name());
+                tempTransaction.setBirth_date(savedHistory.getBirth_date());
+                tempTransaction.setId_card(savedHistory.getId_card());
+                TempTransactionEntity updatedTempTransaction = tempTransactionService.updateTempData(tempTransaction);
+
+                updatedTempTransactions.add(updatedTempTransaction);
+                log.info("Successfully updated " + cancelAndRefundCheckoutResponse.getUuid_transaction());
+            }
+
+            return commonResponseGenerator.succsesResponse(updatedTempTransactions, "Successfully updated status to canceled");
         } catch (Exception e) {
             log.warn(String.valueOf(e));
             return commonResponseGenerator.failedResponse(e.getMessage());
@@ -158,27 +235,35 @@ public class TempTransactionController {
 
     @PutMapping(value = "/refundCheckout")
     @Operation(description = "Refund Transaction")
-    public CommonResponse<TempTransactionEntity> refundCheckout(@RequestBody CancelAndRefundCheckoutResponse param) {
+    public CommonResponse<List<TempTransactionEntity>> refundCheckout(@RequestBody List<CancelAndRefundCheckoutResponse> param) {
         try {
-            HistoryTransactionEntity historyTransaction = new HistoryTransactionEntity();
-            historyTransaction.setUuid_history(param.getUuid_transaction());
-            log.info(String.valueOf(historyTransaction));
-            HistoryTransactionEntity savedHistory = historyTransactionService.refundOrder(historyTransaction);
+            List<TempTransactionEntity> resultList = new ArrayList<>();
 
-            TempTransactionEntity tempTransaction = new TempTransactionEntity();
-            tempTransaction.setUuid_transaction(savedHistory.getUuid_history());
-            tempTransaction.setTitle(savedHistory.getTitle());
-            tempTransaction.setFull_name(savedHistory.getFull_name());
-            tempTransaction.setGiven_name(savedHistory.getGiven_name());
-            tempTransaction.setBirth_date(savedHistory.getBirth_date());
-            tempTransaction.setId_card(savedHistory.getId_card());
-            TempTransactionEntity updatedTempTransaction = tempTransactionService.updateTempData(tempTransaction);
+            for (CancelAndRefundCheckoutResponse item : param) {
+                HistoryTransactionEntity historyTransaction = new HistoryTransactionEntity();
+                historyTransaction.setUuid_history(item.getUuid_transaction());
+                log.info(String.valueOf(historyTransaction));
+                HistoryTransactionEntity savedHistory = historyTransactionService.refundOrder(historyTransaction);
 
-            log.info("Successfully updated " + param.getUuid_transaction());
-            return commonResponseGenerator.succsesResponse(updatedTempTransaction, "Successfully updated status to refunded");
+                TempTransactionEntity tempTransaction = new TempTransactionEntity();
+                tempTransaction.setUuid_transaction(savedHistory.getUuid_history());
+                tempTransaction.setTitle(savedHistory.getTitle());
+                tempTransaction.setFull_name(savedHistory.getFull_name());
+                tempTransaction.setGiven_name(savedHistory.getGiven_name());
+                tempTransaction.setBirth_date(savedHistory.getBirth_date());
+                tempTransaction.setId_card(savedHistory.getId_card());
+                TempTransactionEntity updatedTempTransaction = tempTransactionService.updateTempData(tempTransaction);
+
+                resultList.add(updatedTempTransaction);
+                log.info("Successfully updated " + item.getUuid_transaction());
+            }
+
+            return commonResponseGenerator.succsesResponse(resultList, "Successfully updated status to refunded");
         } catch (Exception e) {
             log.warn(String.valueOf(e));
             return commonResponseGenerator.failedResponse(e.getMessage());
         }
     }
+
+
 }
