@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Slf4j
 @RestController
@@ -33,6 +35,22 @@ public class SchedulesController {
                                                             @PathVariable Date departure_date, @PathVariable Integer passenger){ // yang ini "id_user"
         try {
             List<SchedulesEntity> schedules = schedulesService.searchTiket(departure_city, arrival_city, departure_date, passenger);
+            log.info(String.valueOf(schedules),"Sukses Mencari Data " + schedules);
+            return commonResponseGenerator.succsesResponse(schedules,"Sukses Mencari Data " + schedules);
+        }
+        catch (Exception e){
+            log.warn(String.valueOf(e));
+            return commonResponseGenerator.failedResponse(e.getMessage());
+        }
+
+    }
+
+    @GetMapping(value = "/getTicket/{uuid_schedules}") //yang ada di dalam {} disamakan dengan
+    @Operation(description = "Search Ticket Available By UUID Schedule")
+    //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    public CommonResponse<List<SchedulesEntity>> searchTiketByUUID(@PathVariable UUID uuid_schedules){
+        try {
+            Optional<SchedulesEntity> schedules = schedulesService.getByUuidSchedules(uuid_schedules);
             log.info(String.valueOf(schedules),"Sukses Mencari Data " + schedules);
             return commonResponseGenerator.succsesResponse(schedules,"Sukses Mencari Data " + schedules);
         }

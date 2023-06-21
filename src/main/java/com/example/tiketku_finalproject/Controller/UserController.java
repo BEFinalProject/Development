@@ -36,6 +36,9 @@ public class UserController {
     CommonResponseGenerator urg;
 
     @Autowired
+    RegisterResponse registerResponse;
+
+    @Autowired
     private JwtService jwtService;
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -69,7 +72,7 @@ public class UserController {
 
     @PostMapping("/register")
     @Operation(description = "Register")
-    public CommonResponse<UsersEntity> addUsers(@RequestBody RegisterRequest param) {
+    public CommonRegisterResponse<UsersEntity> addUsers(@RequestBody RegisterRequest param) {
         try {
             UsersEntity regUser = new UsersEntity();
             regUser.setEmail(param.getEmail());
@@ -81,10 +84,10 @@ public class UserController {
             regUser.setToken(jwtService.generateToken(param.getEmail()));
             UsersEntity user = us.addUsers(regUser);
             log.info(String.valueOf(user), "Sukses Menambahkan Data " + user.getUuid_user());
-            return urg.succsesResponse(user, "Sukses Menambahkan Data");
+            return registerResponse.succsesResponse("Sukses Menambahkan Data");
         } catch (Exception e) {
             log.warn(String.valueOf(e));
-            return urg.failedResponse(e.getMessage());
+            return registerResponse.failedResponse(e.getMessage());
         }
     }
 

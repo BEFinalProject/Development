@@ -20,7 +20,7 @@ import java.util.Optional;
 
 @Slf4j
 @RestController
-@RequestMapping(value ="/TempTransacation")
+@RequestMapping(value ="/TempTransaction")
 @Api(value = "TempTransacation")
 public class TempTransactionController {
 
@@ -207,6 +207,7 @@ public class TempTransactionController {
     public CommonResponse<List<TempTransactionEntity>> cancelCheckout(@RequestBody List<CancelAndRefundCheckoutResponse> param) {
         try {
             List<TempTransactionEntity> updatedTempTransactions = new ArrayList<>();
+            List<SchedulesEntity> updatedSchedules = new ArrayList<>();
 
             for (CancelAndRefundCheckoutResponse cancelAndRefundCheckoutResponse : param) {
                 HistoryTransactionEntity historyTransaction = new HistoryTransactionEntity();
@@ -224,20 +225,36 @@ public class TempTransactionController {
 
                 updatedTempTransactions.add(updatedTempTransaction);
                 log.info("Successfully updated " + cancelAndRefundCheckoutResponse.getUuid_transaction());
+
+                Optional<SchedulesEntity> optionalSchedulesEntity = schedulesService.getByUuidSchedules(savedHistory.getUuid_schedules());
+                if (optionalSchedulesEntity.isPresent()) {
+                    SchedulesEntity schedulesEntity = optionalSchedulesEntity.get();
+                    int updatedLimits = schedulesEntity.getLimits() + 1;
+                    schedulesEntity.setLimits(updatedLimits);
+                    updatedSchedules.add(schedulesEntity);
+                    log.info("Successfully updated limits for schedule with UUID: " + savedHistory.getUuid_schedules());
+                }
             }
 
-            return commonResponseGenerator.succsesResponse(updatedTempTransactions, "Successfully updated status to canceled");
+            if (!updatedSchedules.isEmpty()) {
+                List<SchedulesEntity> savedSchedules = schedulesService.saveDataLimit(updatedSchedules);
+                return commonResponseGenerator.succsesResponse(updatedTempTransactions, "Successfully updated status to canceled and increased limits");
+            } else {
+                return commonResponseGenerator.succsesResponse(updatedTempTransactions, "Successfully updated status to canceled");
+            }
         } catch (Exception e) {
             log.warn(String.valueOf(e));
             return commonResponseGenerator.failedResponse(e.getMessage());
         }
     }
 
+
     @PutMapping(value = "/refundCheckout")
     @Operation(description = "Refund Transaction")
     public CommonResponse<List<TempTransactionEntity>> refundCheckout(@RequestBody List<CancelAndRefundCheckoutResponse> param) {
         try {
             List<TempTransactionEntity> resultList = new ArrayList<>();
+            List<SchedulesEntity> updatedSchedules = new ArrayList<>();
 
             for (CancelAndRefundCheckoutResponse item : param) {
                 HistoryTransactionEntity historyTransaction = new HistoryTransactionEntity();
@@ -256,14 +273,29 @@ public class TempTransactionController {
 
                 resultList.add(updatedTempTransaction);
                 log.info("Successfully updated " + item.getUuid_transaction());
+
+                Optional<SchedulesEntity> optionalSchedulesEntity = schedulesService.getByUuidSchedules(savedHistory.getUuid_schedules());
+                if (optionalSchedulesEntity.isPresent()) {
+                    SchedulesEntity schedulesEntity = optionalSchedulesEntity.get();
+                    int updatedLimits = schedulesEntity.getLimits() + 1;
+                    schedulesEntity.setLimits(updatedLimits);
+                    updatedSchedules.add(schedulesEntity);
+                    log.info("Successfully updated limits for schedule with UUID: " + savedHistory.getUuid_schedules());
+                }
             }
 
-            return commonResponseGenerator.succsesResponse(resultList, "Successfully updated status to refunded");
+            if (!updatedSchedules.isEmpty()) {
+                List<SchedulesEntity> savedSchedules = schedulesService.saveDataLimit(updatedSchedules);
+                return commonResponseGenerator.succsesResponse(resultList, "Successfully updated status to refunded and increased limits");
+            } else {
+                return commonResponseGenerator.succsesResponse(resultList, "Successfully updated status to refunded");
+            }
         } catch (Exception e) {
             log.warn(String.valueOf(e));
             return commonResponseGenerator.failedResponse(e.getMessage());
         }
     }
+
 
 
 }

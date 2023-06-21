@@ -15,6 +15,10 @@ import java.util.UUID;
 public class SchedulesService {
     @Autowired
     SchedulesRepository schedulesRepository;
+
+    public List<SchedulesEntity> searchByUuidSchedules(UUID uuid_schedules){
+        return schedulesRepository.searchByUUIDSchedules(uuid_schedules);
+    }
     public List<SchedulesEntity> saveDataLimit(List<SchedulesEntity> schedulesEntities) {
 
         List<SchedulesEntity> savedSchedules = new ArrayList<>();

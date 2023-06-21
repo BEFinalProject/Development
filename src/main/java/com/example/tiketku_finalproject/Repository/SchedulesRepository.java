@@ -26,6 +26,9 @@ public interface SchedulesRepository extends JpaRepository<SchedulesEntity, UUID
                                  @Param("departure_date") Date departure_date,
                                  @Param("total_passenger") int total_passenger);
 
+        @Query("SELECT s from SchedulesEntity s WHERE s.uuid_schedules = :uuid_schedules")
+        List<SchedulesEntity> searchByUUIDSchedules(@Param("uuid_schedules") UUID uuid_schedules);
+
         /*@Modifying
         @Query("UPDATE SchedulesEntity s SET s.limits = 30")
         void resetLimit();*/
