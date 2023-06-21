@@ -1,5 +1,6 @@
 package com.example.tiketku_finalproject.Controller;
 
+import com.example.tiketku_finalproject.Model.AirportsEntity;
 import com.example.tiketku_finalproject.Model.UsersEntity;
 import com.example.tiketku_finalproject.Response.*;
 import com.example.tiketku_finalproject.Service.JwtService;
@@ -42,7 +43,7 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @PostMapping(value = "/Login")
+    @PostMapping(value = "/login")
     @Operation(description = "Login")
     public CommonResponse<String> authenticateAndGetToken(@RequestBody AuthRequest authRequest){
         try{
@@ -66,7 +67,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("/Register")
+    @PostMapping("/register")
     @Operation(description = "Register")
     public CommonResponse<UsersEntity> addUsers(@RequestBody RegisterRequest param) {
         try {
@@ -87,7 +88,7 @@ public class UserController {
         }
     }
 
-    @PutMapping("/ResetPassword")
+    @PutMapping("/resetPassword")
     @Operation(description = "Reset Password")
     public CommonResponse<UsersEntity> validatePassword(@RequestBody ResetPasswordRequest resetPasswordRequest){
         try {
@@ -103,7 +104,27 @@ public class UserController {
             return urg.failedResponse(e.getMessage());
         }
     }
+    @PutMapping(value = "/updateUser")
+    @Operation(description = "Update User")
+    //@PreAuthorize("hasAuthority('ROLE_USERS')")
+    public CommonResponse<UsersEntity> updateUser(@RequestBody UpdateUserResponse update){
+        try {
+            UsersEntity userUpdate = us.getById(update.getUuid_user());
+            userUpdate.setUuid_user(userUpdate.getUuid_user());
+            userUpdate.setEmail(update.getEmail());
+            userUpdate.setFull_name(update.getFull_name());
+            userUpdate.setPhone(update.getPhone());
+            userUpdate.setGender(update.getGender());
+            UsersEntity user = us.updateUser(userUpdate);
+            log.info(String.valueOf(user),"Sukses Update Data " +user.getUuid_user());
+            return urg.succsesResponse(user,"Sukses Update Data " +user.getUuid_user());
+        }
+        catch (Exception e){
+            log.warn(String.valueOf(e));
+            return urg.failedResponse(e.getMessage());
+        }
 
+    }
 
     @GetMapping()
     @Operation(description = "Search All Users")
@@ -146,22 +167,7 @@ public class UserController {
 
     }
 
-    @PutMapping(value = "/updateUser")
-    @Operation(description = "Update User")
-    //@PreAuthorize("hasAuthority('ROLE_USERS')")
-    public CommonResponse<UsersEntity> updateUser(@RequestBody UsersEntity param){
 
-        try {
-            UsersEntity user = us.updateUser(param);
-            log.info(String.valueOf(user),"Sukses Update Data " +user.getUuid_user());
-            return urg.succsesResponse(user,"Sukses Update Data " +user.getUuid_user());
-        }
-        catch (Exception e){
-            log.warn(String.valueOf(e));
-            return urg.failedResponse(e.getMessage());
-        }
-
-    }
 
     @DeleteMapping(value = "/deleteUser/{id_user}")
     @Operation(description = "Delete User By Id")
