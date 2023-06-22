@@ -31,7 +31,7 @@ public class WebSecurityConfig{
 //        UserDetails admin = User.withUsername("diva").password("juan").roles("ADMIN").build();
 //        UserDetails user = User.withUsername("j").password("j").roles("USER").build();
 //        return new InMemoryUserDetailsManager(admin,user);
-        //atas ini kalo secara manual, yang bawah secara Database
+        //atas ini kalo secara manual, yang bawah secara Database.
         return new UserInfoUserDetailsService();
     }
     @Bean
