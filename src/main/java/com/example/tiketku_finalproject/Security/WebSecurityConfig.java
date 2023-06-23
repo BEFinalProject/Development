@@ -40,7 +40,7 @@ public class WebSecurityConfig{
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/Airplane/**","/Airport/**","/Schedules/**","/TempTransaction/**","/HistoryTransaction/**","/Users/**","/swagger-ui/**","/v3/api-docs/**").permitAll()
+                .requestMatchers("/Routes/**","/Airplane/**","/Airport/**","/Schedules/**","/TempTransaction/**","/HistoryTransaction/**","/Users/**","/swagger-ui/**","/v3/api-docs/**").permitAll()
 //                .anyRequest().authenticated().and().httpBasic() formLogin()
                 .and().authorizeHttpRequests().requestMatchers("/City/findCityTicket","/Film/**","/Jadwal/**","/Report/**","/Transaction/**","/DataTransaction/**").authenticated().and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authenticationProvider(authenticationProvider())

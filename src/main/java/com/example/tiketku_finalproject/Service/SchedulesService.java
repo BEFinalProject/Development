@@ -16,6 +16,10 @@ public class SchedulesService {
     @Autowired
     SchedulesRepository schedulesRepository;
 
+    public List<SchedulesEntity> findAllSchedulesData() {
+        return schedulesRepository.findAll();
+    }
+
     public List<SchedulesEntity> searchByUuidSchedules(UUID uuid_schedules){
         return schedulesRepository.searchByUUIDSchedules(uuid_schedules);
     }

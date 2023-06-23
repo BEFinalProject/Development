@@ -28,6 +28,19 @@ public class SchedulesController {
     @Autowired
     CommonResponseGenerator commonResponseGenerator;
 
+    @GetMapping(value = "/findAll")
+    @Operation(description = "Get All Schedules Data")
+    //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    public CommonResponse<List<SchedulesEntity>> findAllSchedules() {
+        try{
+            log.info("Successfully found all data for all schedules");
+            return commonResponseGenerator.succsesResponse(schedulesService.findAllSchedulesData(), "Success get all schedules");
+        }catch (Exception e){
+            log.warn(String.valueOf(e));
+            return commonResponseGenerator.failedResponse(e.getMessage());
+        }
+    }
+
     @GetMapping(value = "/findTiket/{departure_city}/{arrival_city}/{departure_date}/{passenger}") //yang ada di dalam {} disamakan dengan
     @Operation(description = "Search Ticket Available By Departure City, Arrival City, Departure Date And Total Passenger User Needed")
     //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
