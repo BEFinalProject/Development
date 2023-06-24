@@ -3,6 +3,7 @@ package com.example.tiketku_finalproject.Controller;
 import com.example.tiketku_finalproject.Model.SchedulesEntity;
 import com.example.tiketku_finalproject.Response.CommonResponse;
 import com.example.tiketku_finalproject.Response.CommonResponseGenerator;
+import com.example.tiketku_finalproject.Response.ScheduleResponse;
 import com.example.tiketku_finalproject.Service.SchedulesService;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
@@ -41,21 +42,18 @@ public class SchedulesController {
         }
     }
 
-    @GetMapping(value = "/findTiket/{departure_city}/{arrival_city}/{departure_date}/{passenger}") //yang ada di dalam {} disamakan dengan
+    @GetMapping(value = "/findTiket/{departure_city}/{arrival_city}/{departure_date}/{passenger}")
     @Operation(description = "Search Ticket Available By Departure City, Arrival City, Departure Date And Total Passenger User Needed")
-    //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public CommonResponse<List<SchedulesEntity>> searchTiket(@PathVariable String departure_city, @PathVariable String arrival_city,
-                                                            @PathVariable Date departure_date, @PathVariable Integer passenger){ // yang ini "id_user"
+    public CommonResponse<List<ScheduleResponse>> searchTiket(@PathVariable String departure_city, @PathVariable String arrival_city,
+                                                              @PathVariable Date departure_date, @PathVariable Integer passenger) {
         try {
-            List<SchedulesEntity> schedules = schedulesService.searchTiket(departure_city, arrival_city, departure_date, passenger);
-            log.info(String.valueOf(schedules),"Sukses Mencari Data " + schedules);
-            return commonResponseGenerator.succsesResponse(schedules,"Sukses Mencari Data " + schedules);
-        }
-        catch (Exception e){
+            List<ScheduleResponse> schedules = schedulesService.searchTiket(departure_city, arrival_city, departure_date, passenger);
+            log.info("Sukses Mencari Data " + schedules);
+            return commonResponseGenerator.succsesResponse(schedules, "Sukses Mencari Data " + schedules);
+        } catch (Exception e) {
             log.warn(String.valueOf(e));
             return commonResponseGenerator.failedResponse(e.getMessage());
         }
-
     }
 
     @GetMapping(value = "/getTicket/{uuid_schedules}") //yang ada di dalam {} disamakan dengan

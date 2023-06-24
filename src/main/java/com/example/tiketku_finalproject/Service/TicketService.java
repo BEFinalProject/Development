@@ -24,7 +24,7 @@ public class TicketService {
     public String printReportbyUuidHistory(UUID uuid_history) throws FileNotFoundException, JRException {
         List<HistoryTransactionEntity> ticketEntity = historyTransactionRepository.findByUUIDHistory(uuid_history);
         String path = "C:\\Users\\ARJ\\Downloads";
-        File file = ResourceUtils.getFile("classpath:Tiketku.jrxml");
+        File file = ResourceUtils.getFile("classpath:TesJasper.jrxml");
         JasperReport jasperReport= JasperCompileManager.compileReport(file.getAbsolutePath());
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(ticketEntity);
         Map<String,Object> parameters = new HashMap<>();

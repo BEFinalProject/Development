@@ -1,8 +1,6 @@
 package com.example.tiketku_finalproject.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 import java.util.UUID;
 
@@ -16,4 +14,8 @@ public class SchedulesEntity {
     private String iata_code;
     private UUID routes_uid;
     private int limits;
+
+    @ManyToOne
+    @JoinColumn(name = "routes_uid", referencedColumnName = "routes_uid", insertable = false, updatable = false)
+    private RoutesEntity route;
 }

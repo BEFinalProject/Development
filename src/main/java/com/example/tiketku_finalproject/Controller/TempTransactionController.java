@@ -103,9 +103,9 @@ public class TempTransactionController {
         }
     }
 
-    @PutMapping(value = "/checkout")
-    @Operation(description = "Checkout Transaction")
-    public CommonResponse<List<TempTransactionEntity>> checkoutTransaction(@RequestBody List<CheckoutTransactionResponse> param) {
+    @PutMapping(value = "/unpaidCheckout")
+    @Operation(description = "Unpaid Transaction")
+    public CommonResponse<List<TempTransactionEntity>> unpaidTransaction(@RequestBody List<CheckoutTransactionResponse> param) {
         try {
             List<TempTransactionEntity> tempTransactionList = new ArrayList<>();
 
@@ -122,20 +122,53 @@ public class TempTransactionController {
                 HistoryTransactionEntity historyTransaction = new HistoryTransactionEntity();
                 historyTransaction.setUuid_history(tempTransactionEntity.getUuid_transaction());
                 log.info(String.valueOf(historyTransaction));
-                HistoryTransactionEntity saveHistory = historyTransactionService.updateDataHistory(historyTransaction);
+                HistoryTransactionEntity saveHistory = historyTransactionService.unpaidOrder(historyTransaction);
 
                 log.info(String.valueOf(tempTransaction));
-                log.info(String.valueOf(tempTransactionEntity), "Successfully updated " + checkoutResponse.getFull_name());
+                log.info(String.valueOf(tempTransactionEntity), "Successfully updated " + checkoutResponse.getUuid_transaction());
 
                 tempTransactionList.add(tempTransactionEntity);
             }
 
-            return commonResponseGenerator.succsesResponse(tempTransactionList, "Successfully updated transactions");
+            return commonResponseGenerator.succsesResponse(tempTransactionList, "Successfully updated status to unpaid");
         } catch (Exception e) {
             log.warn(String.valueOf(e));
             return commonResponseGenerator.failedResponse(e.getMessage());
         }
     }
+
+    @PutMapping(value = "/paidCheckout")
+    @Operation(description = "Cancel Checkout")
+    public CommonResponse<List<TempTransactionEntity>> paidCheckout(@RequestBody List<CancelAndRefundCheckoutResponse> param) {
+        try {
+            List<TempTransactionEntity> updatedTempTransactions = new ArrayList<>();
+            List<SchedulesEntity> updatedSchedules = new ArrayList<>();
+
+            for (CancelAndRefundCheckoutResponse cancelAndRefundCheckoutResponse : param) {
+                HistoryTransactionEntity historyTransaction = new HistoryTransactionEntity();
+                historyTransaction.setUuid_history(cancelAndRefundCheckoutResponse.getUuid_transaction());
+                HistoryTransactionEntity savedHistory = historyTransactionService.paidOrder(historyTransaction);
+
+                TempTransactionEntity tempTransaction = new TempTransactionEntity();
+                tempTransaction.setUuid_transaction(savedHistory.getUuid_history());
+                tempTransaction.setTitle(savedHistory.getTitle());
+                tempTransaction.setFull_name(savedHistory.getFull_name());
+                tempTransaction.setGiven_name(savedHistory.getGiven_name());
+                tempTransaction.setBirth_date(savedHistory.getBirth_date());
+                tempTransaction.setId_card(savedHistory.getId_card());
+                TempTransactionEntity updatedTempTransaction = tempTransactionService.updateTempData(tempTransaction);
+
+                updatedTempTransactions.add(updatedTempTransaction);
+                log.info("Successfully updated " + cancelAndRefundCheckoutResponse.getUuid_transaction());
+            }
+
+            return commonResponseGenerator.succsesResponse(updatedTempTransactions, "Successfully updated status to paid");
+        } catch (Exception e) {
+            log.warn(String.valueOf(e));
+            return commonResponseGenerator.failedResponse(e.getMessage());
+        }
+    }
+
 
 //    @PutMapping(value = "/cancelCheckout")
 //    @Operation(description = "Cancel Checkout")

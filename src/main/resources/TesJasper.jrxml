@@ -1,115 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.20.3.final using JasperReports Library version 6.20.3-415f9428cffdb6805c6f85bbb29ebaf18813a2ab  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Ticket" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="df414539-5950-42e2-bec0-96b9543b8013">
-    <property name="com.jaspersoft.studio.data.sql.tables">
-        <![CDATA[aGlzdG9yeV90cmFuc2FjdGlvbiBBUyAsODgsMTAyLDhjODI2NzhmLTEyOTUtNGJmOS1iZjc1LWQy
-NTQyMTUxNzhjOTs=]]>
-    </property>
-    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="Database Railway - Postgre"/>
-    <queryString language="SQL">
-        <![CDATA[SELECT uuid_history,
-	uuid_schedules,
-	uuid_user,
-	airplane_name,
-	departure_airport,
-	arrival_airport,
-	departure_city,
-	arrival_city,
-	departure_date,
-	departure_time,
-	arrival_date,
-	arrival_time,
-	seat_type,
-	title,
-	full_name,
-	given_name,
-	valid_until
-FROM history_transaction]]>
-    </queryString>
     <field name="uuid_history" class="java.util.UUID">
-        <property name="com.jaspersoft.studio.field.name" value="uuid_history"/>
-        <property name="com.jaspersoft.studio.field.label" value="uuid_history"/>
-        <property name="com.jaspersoft.studio.field.tree.path" value="history_transaction"/>
     </field>
     <field name="uuid_schedules" class="java.util.UUID">
-        <property name="com.jaspersoft.studio.field.name" value="uuid_schedules"/>
-        <property name="com.jaspersoft.studio.field.label" value="uuid_schedules"/>
-        <property name="com.jaspersoft.studio.field.tree.path" value="history_transaction"/>
     </field>
     <field name="uuid_user" class="java.util.UUID">
-        <property name="com.jaspersoft.studio.field.name" value="uuid_user"/>
-        <property name="com.jaspersoft.studio.field.label" value="uuid_user"/>
-        <property name="com.jaspersoft.studio.field.tree.path" value="history_transaction"/>
     </field>
     <field name="airplane_name" class="java.lang.String">
-        <property name="com.jaspersoft.studio.field.name" value="airplane_name"/>
-        <property name="com.jaspersoft.studio.field.label" value="airplane_name"/>
-        <property name="com.jaspersoft.studio.field.tree.path" value="history_transaction"/>
     </field>
     <field name="departure_airport" class="java.lang.String">
-        <property name="com.jaspersoft.studio.field.name" value="departure_airport"/>
-        <property name="com.jaspersoft.studio.field.label" value="departure_airport"/>
-        <property name="com.jaspersoft.studio.field.tree.path" value="history_transaction"/>
     </field>
     <field name="arrival_airport" class="java.lang.String">
-        <property name="com.jaspersoft.studio.field.name" value="arrival_airport"/>
-        <property name="com.jaspersoft.studio.field.label" value="arrival_airport"/>
-        <property name="com.jaspersoft.studio.field.tree.path" value="history_transaction"/>
     </field>
     <field name="departure_city" class="java.lang.String">
-        <property name="com.jaspersoft.studio.field.name" value="departure_city"/>
-        <property name="com.jaspersoft.studio.field.label" value="departure_city"/>
-        <property name="com.jaspersoft.studio.field.tree.path" value="history_transaction"/>
     </field>
     <field name="arrival_city" class="java.lang.String">
-        <property name="com.jaspersoft.studio.field.name" value="arrival_city"/>
-        <property name="com.jaspersoft.studio.field.label" value="arrival_city"/>
-        <property name="com.jaspersoft.studio.field.tree.path" value="history_transaction"/>
     </field>
     <field name="departure_date" class="java.sql.Date">
-        <property name="com.jaspersoft.studio.field.name" value="departure_date"/>
-        <property name="com.jaspersoft.studio.field.label" value="departure_date"/>
-        <property name="com.jaspersoft.studio.field.tree.path" value="history_transaction"/>
     </field>
     <field name="departure_time" class="java.sql.Time">
-        <property name="com.jaspersoft.studio.field.name" value="departure_time"/>
-        <property name="com.jaspersoft.studio.field.label" value="departure_time"/>
-        <property name="com.jaspersoft.studio.field.tree.path" value="history_transaction"/>
     </field>
     <field name="arrival_date" class="java.sql.Date">
-        <property name="com.jaspersoft.studio.field.name" value="arrival_date"/>
-        <property name="com.jaspersoft.studio.field.label" value="arrival_date"/>
-        <property name="com.jaspersoft.studio.field.tree.path" value="history_transaction"/>
     </field>
     <field name="arrival_time" class="java.sql.Time">
-        <property name="com.jaspersoft.studio.field.name" value="arrival_time"/>
-        <property name="com.jaspersoft.studio.field.label" value="arrival_time"/>
-        <property name="com.jaspersoft.studio.field.tree.path" value="history_transaction"/>
     </field>
     <field name="seat_type" class="java.lang.String">
-        <property name="com.jaspersoft.studio.field.name" value="seat_type"/>
-        <property name="com.jaspersoft.studio.field.label" value="seat_type"/>
-        <property name="com.jaspersoft.studio.field.tree.path" value="history_transaction"/>
     </field>
     <field name="title" class="java.lang.String">
-        <property name="com.jaspersoft.studio.field.name" value="title"/>
-        <property name="com.jaspersoft.studio.field.label" value="title"/>
-        <property name="com.jaspersoft.studio.field.tree.path" value="history_transaction"/>
     </field>
     <field name="full_name" class="java.lang.String">
-        <property name="com.jaspersoft.studio.field.name" value="full_name"/>
-        <property name="com.jaspersoft.studio.field.label" value="full_name"/>
-        <property name="com.jaspersoft.studio.field.tree.path" value="history_transaction"/>
     </field>
     <field name="given_name" class="java.lang.String">
-        <property name="com.jaspersoft.studio.field.name" value="given_name"/>
-        <property name="com.jaspersoft.studio.field.label" value="given_name"/>
-        <property name="com.jaspersoft.studio.field.tree.path" value="history_transaction"/>
     </field>
     <field name="valid_until" class="java.sql.Date">
-        <property name="com.jaspersoft.studio.field.name" value="valid_until"/>
-        <property name="com.jaspersoft.studio.field.label" value="valid_until"/>
-        <property name="com.jaspersoft.studio.field.tree.path" value="history_transaction"/>
     </field>
     <background>
         <band/>
