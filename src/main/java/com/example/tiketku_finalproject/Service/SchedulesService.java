@@ -52,6 +52,10 @@ public class SchedulesService {
         for (Object[] result : results) {
             SchedulesEntity schedule = new SchedulesEntity();
             schedule.setUuid_schedules((UUID) result[0]);
+            schedule.setAirplane_id((String) result[1]);
+            schedule.setIata_code((String) result[2]);
+            schedule.setRoutes_uid((UUID) result[3]);
+            schedule.setLimits((Integer) result[4]);
             schedules.add(schedule);
         }
 

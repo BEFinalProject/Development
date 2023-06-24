@@ -5,9 +5,11 @@ import com.example.tiketku_finalproject.Response.CommonResponse;
 import com.example.tiketku_finalproject.Response.CommonResponseGenerator;
 import com.example.tiketku_finalproject.Response.TransactionSummaryResponse;
 import com.example.tiketku_finalproject.Service.HistoryTransactionService;
+import com.example.tiketku_finalproject.Service.TicketService;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.FileNotFoundException;
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -27,7 +30,8 @@ import java.util.UUID;
 public class HistoryTransactionController {
     @Autowired
     HistoryTransactionService historyTransactionService;
-
+    @Autowired
+    TicketService ticketService;
     @Autowired
     CommonResponseGenerator commonResponseGenerator;
 
@@ -92,5 +96,12 @@ public class HistoryTransactionController {
             log.warn(String.valueOf(e));
             return commonResponseGenerator.failedResponse(e.getMessage());
         }
+    }
+
+    @GetMapping("/report/{uuid_history}")
+    @Operation(description = "Generate Report")
+//    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    public String generateReportbyID(@PathVariable UUID uuid_history) throws JRException, FileNotFoundException {
+        return ticketService.printReportbyUuidHistory(uuid_history);
     }
 }

@@ -14,7 +14,8 @@ import java.util.UUID;
 
 @Repository
 public interface SchedulesRepository extends JpaRepository<SchedulesEntity, UUID> {
-        @Query("SELECT s.uuid_schedules, r.departure_city, r.arrival_city, r.departure_date " +
+
+        @Query("SELECT s.uuid_schedules, s.airplane_id, s.iata_code, s.routes_uid, s.limits " +
                 "FROM SchedulesEntity s " +
                 "JOIN RoutesEntity r ON r.routes_uid = s.routes_uid " +
                 "WHERE r.departure_city = :departure_city " +
@@ -25,6 +26,7 @@ public interface SchedulesRepository extends JpaRepository<SchedulesEntity, UUID
                                  @Param("arrival_city") String arrival_city,
                                  @Param("departure_date") Date departure_date,
                                  @Param("total_passenger") int total_passenger);
+
 
         @Query("SELECT s from SchedulesEntity s WHERE s.uuid_schedules = :uuid_schedules")
         List<SchedulesEntity> searchByUUIDSchedules(@Param("uuid_schedules") UUID uuid_schedules);

@@ -63,9 +63,9 @@ public class SchedulesController {
     //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public CommonResponse<List<SchedulesEntity>> searchTiketByUUID(@PathVariable UUID uuid_schedules){
         try {
-            Optional<SchedulesEntity> schedules = schedulesService.getByUuidSchedules(uuid_schedules);
+            List<SchedulesEntity> schedules = schedulesService.searchByUuidSchedules(uuid_schedules);
             log.info(String.valueOf(schedules),"Sukses Mencari Data " + schedules);
-            return commonResponseGenerator.succsesResponse(schedules,"Sukses Mencari Data " + schedules);
+            return commonResponseGenerator.succsesResponse(schedules,"Sukses Mencari Data ");
         }
         catch (Exception e){
             log.warn(String.valueOf(e));
