@@ -26,6 +26,10 @@ public class HistoryTransactionService {
     UsersRepository usersRepository;
     private LocalDateTime currentDateTime = LocalDateTime.now();
 
+    public List<HistoryTransactionEntity> findAll(){
+        return historyTransactionRepository.findAll();
+    }
+
     public List<HistoryTransactionEntity> searchHistoryUsers(UUID uuid_user){
         return historyTransactionRepository.findByUUIDUsers(uuid_user);
     }

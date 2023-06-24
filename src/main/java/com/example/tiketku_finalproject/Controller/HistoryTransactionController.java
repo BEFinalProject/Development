@@ -35,6 +35,12 @@ public class HistoryTransactionController {
     @Autowired
     CommonResponseGenerator commonResponseGenerator;
 
+    @GetMapping(value = "/findAll")
+    @Operation(description = "Get All History Data")
+    public CommonResponse<List<HistoryTransactionEntity>> getAllHistory(){
+        return commonResponseGenerator.succsesResponse(historyTransactionService.findAll(), "Show All History data");
+    }
+
     @GetMapping(value = "/user/{uuid_user}")
     @Operation(description = "Show All Transaction Users ")
     public CommonResponse<List<HistoryTransactionEntity>> getHistory(@PathVariable UUID uuid_user){
