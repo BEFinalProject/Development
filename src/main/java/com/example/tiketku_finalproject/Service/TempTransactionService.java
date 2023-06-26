@@ -55,9 +55,7 @@ public class TempTransactionService {
             transactionExist.setArrival_airport(routes.getArrival_airport());
             transactionExist.setDeparture_city(routes.getDeparture_city());
             transactionExist.setArrival_city(routes.getArrival_city());
-            transactionExist.setDeparture_date(routes.getDeparture_date()); // ini
             transactionExist.setDeparture_time(routes.getDeparture_time());
-            transactionExist.setArrival_date(routes.getArrival_date());
             transactionExist.setArrival_time(routes.getArrival_time()); // sampe sini
             transactionExist.setSeats_id(seats.getSeats_id());
             transactionExist.setPrice(seats.getPrice());
@@ -77,7 +75,7 @@ public class TempTransactionService {
         updatedTempData.setGiven_name(tempTransaction.getGiven_name());
         updatedTempData.setBirth_date(tempTransaction.getBirth_date());
         updatedTempData.setId_card(tempTransaction.getId_card());
-        updatedTempData.setValid_until(tempTransaction.getDeparture_date());
+        updatedTempData.setValid_until(tempTransaction.getDeparture_time());
         return tempTransactionRepository.save(updatedTempData);
     }
     public void truncate(){

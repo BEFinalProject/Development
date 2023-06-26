@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.sql.Time;
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.UUID;
 @Data
 @AllArgsConstructor
@@ -16,12 +17,11 @@ public class ScheduleResponse {
     private String iata_code;
     private UUID routes_uid;
     private Integer limits;
+    private int price;
     private String departure_city;
     private String arrival_city;
     private String departure_airport;
     private String arrival_airport;
-//    private Date departure_date;
-//    private Date arrival_date;
-    private Time departure_time;
-    private Time arrival_time;
+    private LocalDateTime departure_time;
+    private LocalDateTime arrival_time;
 }

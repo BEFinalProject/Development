@@ -1,23 +1,17 @@
-package com.example.tiketku_finalproject.Model;
+package com.example.tiketku_finalproject.Response;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.hibernate.annotations.UpdateTimestamp;
+import lombok.NoArgsConstructor;
 
-import java.sql.Time;
+import java.sql.Date;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.UUID;
 
-@Entity
 @Data
-@Table(name = "temp_transaction")
-public class TempTransactionEntity {
-    @Id
+@NoArgsConstructor
+@AllArgsConstructor
+public class TempTransactionResponse {
     private UUID uuid_transaction;
     private UUID uuid_schedules;
     private UUID uuid_user;
@@ -39,11 +33,4 @@ public class TempTransactionEntity {
     private Date birth_date;
     private String id_card;
     private LocalDateTime valid_until;
-    @JsonIgnore
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime created_at;
-    @JsonIgnore
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @UpdateTimestamp
-    private LocalDateTime modified_at;
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -64,8 +65,8 @@ public class SchedulesService {
         return schedules;
     }*/
 
-    public List<ScheduleResponse> searchTiket(String departure_city, String arrival_city, Date departure_date, Integer total_passenger) {
-        List<Object[]> results = schedulesRepository.searching(departure_city, arrival_city, departure_date, total_passenger);
+    public List<ScheduleResponse> searchTiket(String departure_city, String arrival_city, LocalDateTime departure_time, Integer total_passenger) {
+        List<Object[]> results = schedulesRepository.searching(departure_city, arrival_city, departure_time, total_passenger);
         List<ScheduleResponse> schedules = new ArrayList<>();
 
         for (Object[] result : results) {
@@ -75,14 +76,15 @@ public class SchedulesService {
             schedule.setIata_code((String) result[2]);
             schedule.setRoutes_uid((UUID) result[3]);
             schedule.setLimits((Integer) result[4]);
-            schedule.setDeparture_city((String) result[5]);
-            schedule.setArrival_city((String) result[6]);
-            schedule.setDeparture_airport((String) result[7]);
-            schedule.setArrival_airport((String) result[8]);
+            schedule.setPrice((Integer) result[5]);
+            schedule.setDeparture_city((String) result[6]);
+            schedule.setArrival_city((String) result[7]);
+            schedule.setDeparture_airport((String) result[8]);
+            schedule.setArrival_airport((String) result[9]);
 //            schedule.setDeparture_date((Date) result[9]);
 //            schedule.setArrival_date((Date) result[10]);
-            schedule.setDeparture_time((Time) result[9]);
-            schedule.setArrival_time((Time) result[10]);
+            schedule.setDeparture_time((LocalDateTime) result[10]);
+            schedule.setArrival_time((LocalDateTime) result[11]);
             schedules.add(schedule);
         }
 

@@ -58,11 +58,11 @@ public class HistoryTransactionController {
             return commonResponseGenerator.failedResponse(e.getMessage());
         }
     }
-    @GetMapping(value = "/date/{departure_date}/{uuid_user}")
+    @GetMapping(value = "/date/{departure_time}/{uuid_user}")
     @Operation(description = "Show All Transaction User By Date")
-    public CommonResponse<List<HistoryTransactionEntity>> getHistory(@PathVariable Date departure_date, @PathVariable UUID uuid_user){
+    public CommonResponse<List<HistoryTransactionEntity>> getHistory(@PathVariable LocalDateTime departure_time, @PathVariable UUID uuid_user){
         try {
-            List<HistoryTransactionEntity> historyTransaction = historyTransactionService.searchHistoryByDateAndUUIDUsers(departure_date,uuid_user);
+            List<HistoryTransactionEntity> historyTransaction = historyTransactionService.searchHistoryByDateAndUUIDUsers(departure_time,uuid_user);
             log.info(String.valueOf(historyTransaction));
             if (!historyTransaction.isEmpty()) {
                 return commonResponseGenerator.succsesResponse(historyTransaction,"Sukses Mencari Jadwal Transaction");

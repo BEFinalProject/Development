@@ -14,6 +14,7 @@ public class SchedulesEntity {
     private String iata_code;
     private UUID routes_uid;
     private int limits;
+    private int price;
 
     @ManyToOne
     @JoinColumn(name = "routes_uid", referencedColumnName = "routes_uid", insertable = false, updatable = false)

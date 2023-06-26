@@ -46,7 +46,10 @@ public class TempTransactionController {
                 tempTransaction.setUuid_user(tempAddTransaction.getUuid_user());
                 tempTransaction.setUuid_schedules(tempAddTransaction.getSchedule_uid());
                 tempTransaction.setSeats_id(tempAddTransaction.getSeats_id());
+
+    //            tempTransaction.setUuid_transaction(tempAddTransaction.getUuid_transaction());
                 transactionEntities.add(tempTransaction);
+
 
                 Optional<SchedulesEntity> optionalSchedulesEntity = schedulesService.getByUuidSchedules(tempAddTransaction.getSchedule_uid());
 
@@ -67,6 +70,18 @@ public class TempTransactionController {
                         List<TempTransactionEntity> savedTempTransactions = tempTransactionService.addTransaction(Collections.singletonList(tempTransaction));
                         TempTransactionEntity savedTempTransaction = savedTempTransactions.get(0);
                         tempTransaction.setUuid_transaction(savedTempTransaction.getUuid_transaction());
+                        tempTransaction.setArrival_city(savedTempTransaction.getArrival_city());
+                        tempTransaction.setPassenger(savedTempTransaction.getPassenger());
+                        tempTransaction.setAirplane_name(savedTempTransaction.getAirplane_name());
+                        tempTransaction.setAirplane_type(savedTempTransaction.getAirplane_type());
+                        tempTransaction.setDeparture_airport(savedTempTransaction.getDeparture_airport());
+                        tempTransaction.setArrival_airport(savedTempTransaction.getArrival_airport());
+                        tempTransaction.setDeparture_city(savedTempTransaction.getDeparture_city());
+                        tempTransaction.setDeparture_time(savedTempTransaction.getDeparture_time());
+                        tempTransaction.setArrival_time(savedTempTransaction.getArrival_time());
+                        tempTransaction.setPrice(savedTempTransaction.getPrice());
+                        tempTransaction.setSeat_type(savedTempTransaction.getSeat_type());
+
                     }
                 }
 
