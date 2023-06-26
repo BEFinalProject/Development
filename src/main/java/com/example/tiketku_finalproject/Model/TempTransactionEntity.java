@@ -39,7 +39,7 @@ public class TempTransactionEntity {
     private Date birth_date;
     private String id_card;
     private LocalDateTime valid_until;
-    @JsonIgnore
+//    @JsonIgnore
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime created_at;
     @JsonIgnore
