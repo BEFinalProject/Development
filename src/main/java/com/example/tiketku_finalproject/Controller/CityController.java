@@ -31,8 +31,8 @@ public class CityController {
     //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public CommonResponse<List<CitiesEntity>> findAllCities(){
         try{
-            log.info("Successfully found all routes");
-            return commonResponseGenerator.succsesResponse(citiesService.findAllCities(), "Successfully find all routes data");
+            log.info("Successfully found all cities data");
+            return commonResponseGenerator.succsesResponse(citiesService.findAllCities(), "Successfully find all cities data");
         }catch(Exception e){
             log.warn(String.valueOf(e));
             return commonResponseGenerator.failedResponse(e.getMessage());
