@@ -240,4 +240,8 @@ public class HistoryTransactionService {
 
         return summaries;
     }
+
+    public void truncateHistoryData(){
+        historyTransactionRepository.deleteAll();
+    }
 }
