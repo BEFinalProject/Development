@@ -1,11 +1,13 @@
 package com.example.tiketku_finalproject.Response;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Time;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 @Data
@@ -24,4 +26,8 @@ public class ScheduleResponse {
     private String arrival_airport;
     private LocalDateTime departure_time;
     private LocalDateTime arrival_time;
+    @JsonIgnore
+    private LocalDate departure_date;
+    @JsonIgnore
+    private LocalDate arrival_date;
 }

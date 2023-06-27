@@ -33,7 +33,7 @@ public class Scheduler {
     }
 
     @Scheduled(cron = "0 0 0 * * *")
-    public void truncateHistoru(){
+    public void truncateHistory(){
         historyTransactionService.truncateHistoryData();
     }
 }

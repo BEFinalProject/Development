@@ -5,6 +5,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -24,4 +25,6 @@ public class RoutesEntity {
     private String arrival_airport;
     private LocalDateTime departure_time;
     private LocalDateTime arrival_time;
+    private LocalDate departure_date;
+    private LocalDate arrival_date;
 }

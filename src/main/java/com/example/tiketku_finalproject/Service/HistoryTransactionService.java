@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -33,8 +34,8 @@ public class HistoryTransactionService {
     public List<HistoryTransactionEntity> searchHistoryUsers(UUID uuid_user){
         return historyTransactionRepository.findByUUIDUsers(uuid_user);
     }
-    public List<HistoryTransactionEntity> searchHistoryByDateAndUUIDUsers(LocalDateTime departure_time, UUID uuid_users){
-        return historyTransactionRepository.findByDepartureDate(departure_time, uuid_users);
+    public List<HistoryTransactionEntity> searchHistoryByDateAndUUIDUsers(LocalDate departure_date, UUID uuid_users){
+        return historyTransactionRepository.findByDepartureDate(departure_date, uuid_users);
     }
     public List<HistoryTransactionEntity> searchHistoryByUUIDUserAndHistory(UUID uuid_user, UUID uuid_history){
         return historyTransactionRepository.findByUUIDUserAndHistory(uuid_user, uuid_history);
@@ -61,6 +62,8 @@ public class HistoryTransactionService {
             historyData.setArrival_airport(transaction.getArrival_airport());
             historyData.setDeparture_city(transaction.getDeparture_city());
             historyData.setArrival_city(transaction.getArrival_city());
+            historyData.setDeparture_date(transaction.getDeparture_date());
+            historyData.setArrival_date(transaction.getArrival_date());
             historyData.setDeparture_time(transaction.getDeparture_time());
             historyData.setArrival_time(transaction.getArrival_time());
             historyData.setPrice(transaction.getPrice());
@@ -93,6 +96,8 @@ public class HistoryTransactionService {
         historyData.setArrival_airport(transaction.getArrival_airport());
         historyData.setDeparture_city(transaction.getDeparture_city());
         historyData.setArrival_city(transaction.getArrival_city());
+        historyData.setDeparture_date(transaction.getDeparture_date());
+        historyData.setArrival_date(transaction.getArrival_date());
         historyData.setDeparture_time(transaction.getDeparture_time());
         historyData.setArrival_time(transaction.getArrival_time());
         historyData.setPrice(transaction.getPrice());
@@ -103,7 +108,7 @@ public class HistoryTransactionService {
         historyData.setGiven_name(transaction.getGiven_name());
         historyData.setBirth_date(transaction.getBirth_date());
         historyData.setId_card(transaction.getId_card());
-        historyData.setValid_until(transaction.getDeparture_time());
+        historyData.setValid_until(transaction.getDeparture_date());
         historyData.setCreated_at(transaction.getCreated_at());
         historyData.setModified_at(currentDateTime);
         return historyTransactionRepository.save(historyData);
@@ -128,6 +133,8 @@ public class HistoryTransactionService {
         historyData.setArrival_airport(transaction.getArrival_airport());
         historyData.setDeparture_city(transaction.getDeparture_city());
         historyData.setArrival_city(transaction.getArrival_city());
+        historyData.setDeparture_date(transaction.getDeparture_date());
+        historyData.setArrival_date(transaction.getArrival_date());
         historyData.setDeparture_time(transaction.getDeparture_time());
         historyData.setArrival_time(transaction.getArrival_time());
         historyData.setPrice(transaction.getPrice());
@@ -138,7 +145,7 @@ public class HistoryTransactionService {
         historyData.setGiven_name(transaction.getGiven_name());
         historyData.setBirth_date(transaction.getBirth_date());
         historyData.setId_card(transaction.getId_card());
-        historyData.setValid_until(transaction.getDeparture_time());
+        historyData.setValid_until(transaction.getDeparture_date());
         historyData.setCreated_at(transaction.getCreated_at());
         historyData.setModified_at(currentDateTime);
         return historyTransactionRepository.save(historyData);
@@ -164,6 +171,8 @@ public class HistoryTransactionService {
         historyData.setArrival_airport(transaction.getArrival_airport());
         historyData.setDeparture_city(transaction.getDeparture_city());
         historyData.setArrival_city(transaction.getArrival_city());
+        historyData.setDeparture_date(transaction.getDeparture_date());
+        historyData.setArrival_date(transaction.getArrival_date());
         historyData.setDeparture_time(transaction.getDeparture_time());
         historyData.setArrival_time(transaction.getArrival_time());
         historyData.setPrice(transaction.getPrice());
@@ -174,7 +183,7 @@ public class HistoryTransactionService {
         historyData.setGiven_name(transaction.getGiven_name());
         historyData.setBirth_date(transaction.getBirth_date());
         historyData.setId_card(transaction.getId_card());
-        historyData.setValid_until(transaction.getDeparture_time());
+        historyData.setValid_until(transaction.getDeparture_date());
         historyData.setCreated_at(transaction.getCreated_at());
         historyData.setModified_at(currentDateTime);
         return historyTransactionRepository.save(historyData);
@@ -209,6 +218,8 @@ public class HistoryTransactionService {
         historyData.setArrival_airport(transaction.getArrival_airport());
         historyData.setDeparture_city(transaction.getDeparture_city());
         historyData.setArrival_city(transaction.getArrival_city());
+        historyData.setDeparture_date(transaction.getDeparture_date());
+        historyData.setArrival_date(transaction.getArrival_date());
         historyData.setDeparture_time(transaction.getDeparture_time());
         historyData.setArrival_time(transaction.getArrival_time());
         historyData.setPrice(transaction.getPrice());
@@ -219,7 +230,7 @@ public class HistoryTransactionService {
         historyData.setGiven_name(transaction.getGiven_name());
         historyData.setBirth_date(transaction.getBirth_date());
         historyData.setId_card(transaction.getId_card());
-        historyData.setValid_until(transaction.getDeparture_time());
+        historyData.setValid_until(transaction.getDeparture_date());
         historyData.setCreated_at(transaction.getCreated_at());
         historyData.setModified_at(currentDateTime);
 

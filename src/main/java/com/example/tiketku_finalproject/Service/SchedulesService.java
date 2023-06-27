@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,8 +66,8 @@ public class SchedulesService {
         return schedules;
     }*/
 
-    public List<ScheduleResponse> searchTiket(String departure_city, String arrival_city, LocalDateTime departure_time, Integer total_passenger) {
-        List<Object[]> results = schedulesRepository.searching(departure_city, arrival_city, departure_time, total_passenger);
+    public List<ScheduleResponse> searchTiket(String departure_city, String arrival_city, LocalDate departure_date, Integer total_passenger) {
+        List<Object[]> results = schedulesRepository.searching(departure_city, arrival_city, departure_date, total_passenger);
         List<ScheduleResponse> schedules = new ArrayList<>();
 
         for (Object[] result : results) {

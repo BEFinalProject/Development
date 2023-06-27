@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.FileNotFoundException;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -58,11 +59,11 @@ public class HistoryTransactionController {
             return commonResponseGenerator.failedResponse(e.getMessage());
         }
     }
-    @GetMapping(value = "/date/{departure_time}/{uuid_user}")
+    @GetMapping(value = "/date/{departure_date}/{uuid_user}")
     @Operation(description = "Show All Transaction User By Date")
-    public CommonResponse<List<HistoryTransactionEntity>> getHistory(@PathVariable LocalDateTime departure_time, @PathVariable UUID uuid_user){
+    public CommonResponse<List<HistoryTransactionEntity>> getHistory(@PathVariable LocalDate departure_date, @PathVariable UUID uuid_user){
         try {
-            List<HistoryTransactionEntity> historyTransaction = historyTransactionService.searchHistoryByDateAndUUIDUsers(departure_time,uuid_user);
+            List<HistoryTransactionEntity> historyTransaction = historyTransactionService.searchHistoryByDateAndUUIDUsers(departure_date,uuid_user);
             log.info(String.valueOf(historyTransaction));
             if (!historyTransaction.isEmpty()) {
                 return commonResponseGenerator.succsesResponse(historyTransaction,"Sukses Mencari Jadwal Transaction");

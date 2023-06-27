@@ -9,6 +9,7 @@ import lombok.Data;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Time;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
@@ -28,6 +29,8 @@ public class TempTransactionEntity {
     private String arrival_airport;
     private String departure_city;
     private String arrival_city;
+    private LocalDate departure_date;
+    private LocalDate arrival_date;
     private LocalDateTime departure_time;
     private LocalDateTime arrival_time;
     private int price;
@@ -38,7 +41,7 @@ public class TempTransactionEntity {
     private String given_name;
     private Date birth_date;
     private String id_card;
-    private LocalDateTime valid_until;
+    private LocalDate valid_until;
 //    @JsonIgnore
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime created_at;

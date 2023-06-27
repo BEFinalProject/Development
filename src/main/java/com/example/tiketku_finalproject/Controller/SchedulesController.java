@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -43,12 +44,12 @@ public class SchedulesController {
         }
     }
 
-    @GetMapping(value = "/findTiket/{departure_city}/{arrival_city}/{departure_time}/{passenger}")
+    @GetMapping(value = "/findTiket/{departure_city}/{arrival_city}/{departure_date}/{passenger}")
     @Operation(description = "Search Ticket Available By Departure City, Arrival City, Departure Date And Total Passenger User Needed")
     public CommonResponse<List<ScheduleResponse>> searchTiket(@PathVariable String departure_city, @PathVariable String arrival_city,
-                                                              @PathVariable LocalDateTime departure_time, @PathVariable Integer passenger) {
+                                                              @PathVariable LocalDate departure_date, @PathVariable Integer passenger) {
         try {
-            List<ScheduleResponse> schedules = schedulesService.searchTiket(departure_city, arrival_city, departure_time, passenger);
+            List<ScheduleResponse> schedules = schedulesService.searchTiket(departure_city, arrival_city, departure_date, passenger);
             log.info("Sukses Mencari Data " + schedules);
             return commonResponseGenerator.succsesResponse(schedules, "Sukses Mencari Data " + schedules);
         } catch (Exception e) {

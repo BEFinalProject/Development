@@ -77,6 +77,8 @@ public class TempTransactionController {
                         tempTransaction.setDeparture_airport(savedTempTransaction.getDeparture_airport());
                         tempTransaction.setArrival_airport(savedTempTransaction.getArrival_airport());
                         tempTransaction.setDeparture_city(savedTempTransaction.getDeparture_city());
+                        tempTransaction.setDeparture_date(savedTempTransaction.getDeparture_date());
+                        tempTransaction.setArrival_date(savedTempTransaction.getArrival_date());
                         tempTransaction.setDeparture_time(savedTempTransaction.getDeparture_time());
                         tempTransaction.setArrival_time(savedTempTransaction.getArrival_time());
                         tempTransaction.setPrice(savedTempTransaction.getPrice());

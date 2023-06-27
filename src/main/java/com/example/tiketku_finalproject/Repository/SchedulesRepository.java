@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -21,11 +22,11 @@ public interface SchedulesRepository extends JpaRepository<SchedulesEntity, UUID
                 "JOIN RoutesEntity r ON r.routes_uid = s.routes_uid " +
                 "WHERE r.departure_city = :departure_city " +
                 "AND r.arrival_city = :arrival_city " +
-                "AND r.departure_time = :departure_time " +
+                "AND r.departure_date = :departure_date " +
                 "AND s.limits >= :total_passenger")
         List<Object[]> searching(@Param("departure_city") String departure_city,
                                  @Param("arrival_city") String arrival_city,
-                                 @Param("departure_time") LocalDateTime departure_time,
+                                 @Param("departure_date") LocalDate departure_date,
                                  @Param("total_passenger") int total_passenger);
 
         @Query("SELECT s from SchedulesEntity s WHERE s.uuid_schedules = :uuid_schedules")
