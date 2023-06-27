@@ -8,6 +8,7 @@ import com.example.tiketku_finalproject.Service.JwtService;
 import com.example.tiketku_finalproject.Service.UsersService;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -198,13 +199,14 @@ public class UserController {
         }
     }
     @PreAuthorize("hasAuthority('ROLE_BUYER  ')")
-    @GetMapping(value = "/user/{token}")
-    @Operation(description = "Show All Transaction Users ")
-    public CommonResponse<UserSearchByTokenResponse> getToken(@PathVariable String token) {
+    @GetMapping(value = "/token")
+    @Operation(description = "Show All Transaction Users")
+    public CommonResponse<UserSearchByTokenResponse> getToken(HttpServletRequest request) {
         try {
+            String token = request.getHeader("token"); // Mengambil nilai header "token"
             UserSearchByTokenResponse user = us.searchToken(token);
             log.info(String.valueOf(user));
-            return urg.succsesResponse(user, "Sukses Mencari Data ");
+            return urg.succsesResponse(user, "Sukses Mencari Data");
         } catch (Exception e) {
             log.warn(String.valueOf(e));
             return urg.failedResponse(e.getMessage());
