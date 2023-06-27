@@ -1,6 +1,7 @@
 package com.example.tiketku_finalproject.Controller;
 
 import com.example.tiketku_finalproject.Model.AirportsEntity;
+import com.example.tiketku_finalproject.Model.HistoryTransactionEntity;
 import com.example.tiketku_finalproject.Model.UsersEntity;
 import com.example.tiketku_finalproject.Response.*;
 import com.example.tiketku_finalproject.Service.JwtService;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -91,6 +93,7 @@ public class UserController {
         }
     }
 
+    @PreAuthorize("hasAuthority('ROLE_BUYER  ')")
     @PutMapping("/resetPassword")
     @Operation(description = "Reset Password")
     public CommonResponse<UsersEntity> validatePassword(@RequestBody ResetPasswordRequest resetPasswordRequest){
@@ -107,6 +110,8 @@ public class UserController {
             return urg.failedResponse(e.getMessage());
         }
     }
+
+    @PreAuthorize("hasAuthority('ROLE_BUYER  ')")
     @PutMapping(value = "/updateUser")
     @Operation(description = "Update User")
     //@PreAuthorize("hasAuthority('ROLE_USERS')")
@@ -129,6 +134,7 @@ public class UserController {
 
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN  ')")
     @GetMapping()
     @Operation(description = "Search All Users")
     //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
@@ -154,6 +160,7 @@ public class UserController {
         }
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN  ')")
     @GetMapping(value = "/findUser/{id_user}") //yang ada di dalam {} disamakan dengan
     @Operation(description = "Find Users By Id")
     //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
@@ -171,7 +178,7 @@ public class UserController {
     }
 
 
-
+    @PreAuthorize("hasAuthority('ROLE_BUYER  ')")
     @DeleteMapping(value = "/deleteUser/{id_user}")
     @Operation(description = "Delete User By Id")
     //@PreAuthorize("hasAuthority('ROLE_USERS')")
@@ -188,6 +195,19 @@ public class UserController {
         catch (Exception e) {
             log.error(String.valueOf(e));
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to delete User", e);
+        }
+    }
+    @PreAuthorize("hasAuthority('ROLE_BUYER  ')")
+    @GetMapping(value = "/user/{token}")
+    @Operation(description = "Show All Transaction Users ")
+    public CommonResponse<UserSearchByTokenResponse> getToken(@PathVariable String token) {
+        try {
+            UserSearchByTokenResponse user = us.searchToken(token);
+            log.info(String.valueOf(user));
+            return urg.succsesResponse(user, "Sukses Mencari Data ");
+        } catch (Exception e) {
+            log.warn(String.valueOf(e));
+            return urg.failedResponse(e.getMessage());
         }
     }
 }
