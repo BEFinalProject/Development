@@ -198,7 +198,7 @@ public class UserController {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to delete User", e);
         }
     }
-    @PreAuthorize("hasAuthority('ROLE_BUYER  ')")
+    
     @GetMapping(value = "/token")
     @Operation(description = "Show All Transaction Users")
     public CommonResponse<UserSearchByTokenResponse> getToken(HttpServletRequest request) {
