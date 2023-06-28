@@ -87,7 +87,7 @@
 			<version>6.17.0</version>
 		</dependency>
 
-<!--		Rhino buat jasper-->
+		<!--		Rhino buat jasper-->
 		<dependency>
 			<groupId>org.mozilla</groupId>
 			<artifactId>rhino</artifactId>

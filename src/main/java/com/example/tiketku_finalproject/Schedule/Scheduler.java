@@ -35,4 +35,3 @@ public class Scheduler {
         tempTransactionService.truncateTempTransactionData();
     }
 }
-

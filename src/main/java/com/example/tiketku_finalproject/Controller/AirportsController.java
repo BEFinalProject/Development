@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -23,6 +24,7 @@ public class AirportsController {
     @Autowired
     CommonResponseGenerator commonResponseGenerator;
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN  ')")
     @PostMapping("/addAirport")
     @Operation(description = "Adds a new Airport To Database")
     public CommonResponse<AirportsEntity> addAirports(@RequestBody AirportsEntity param){
@@ -36,6 +38,7 @@ public class AirportsController {
         }
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN  ')")
     @PutMapping("/updateAirport")
     @Operation(description = "Update Airport From Database")
     public CommonResponse<AirportsEntity> updateAirport(@RequestBody AirportsEntity param){
@@ -49,6 +52,7 @@ public class AirportsController {
         }
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN  ')")
     @DeleteMapping("/deleteAirport/{iata_code}")
     @Operation(description = "Delete Airports From Database")
     public CommonResponse<AirportsEntity> deleteAirport(@PathVariable String iata_code){

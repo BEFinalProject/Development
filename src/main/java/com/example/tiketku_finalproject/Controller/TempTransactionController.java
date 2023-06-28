@@ -11,6 +11,7 @@ import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -119,7 +120,7 @@ public class TempTransactionController {
             return commonResponseGenerator.failedResponse(e.getMessage());
         }
     }
-
+    @PreAuthorize("hasAuthority('ROLE_BUYER  ')")
     @PutMapping(value = "/unpaidCheckout")
     @Operation(description = "Unpaid Transaction")
     public CommonResponse<List<TempTransactionEntity>> unpaidTransaction(@RequestBody List<CheckoutTransactionResponse> param) {
@@ -153,7 +154,7 @@ public class TempTransactionController {
             return commonResponseGenerator.failedResponse(e.getMessage());
         }
     }
-
+    @PreAuthorize("hasAuthority('ROLE_BUYER  ')")
     @PutMapping(value = "/paidCheckout")
     @Operation(description = "Cancel Checkout")
     public CommonResponse<List<TempTransactionEntity>> paidCheckout(@RequestBody List<CancelAndRefundCheckoutResponse> param) {
@@ -186,72 +187,7 @@ public class TempTransactionController {
         }
     }
 
-
-//    @PutMapping(value = "/cancelCheckout")
-//    @Operation(description = "Cancel Checkout")
-//    public CommonResponse<List<TempTransactionEntity>> cancelCheckout(@RequestBody List<CancelAndRefundCheckoutResponse> param) {
-//        try {
-//            List<TempTransactionEntity> transactionEntities = new ArrayList<>();
-//            List<SchedulesEntity> schedulesEntities = new ArrayList<>();
-//            for (CancelAndRefundCheckoutResponse cancelAndRefundCheckoutResponse : param) {
-//                TempTransactionEntity tempTransaction = new TempTransactionEntity();
-//                tempTransaction.setUuid_transaction(cancelAndRefundCheckoutResponse.getUuid_transaction());
-//                transactionEntities.add(tempTransaction);
-//
-//                Optional<SchedulesEntity> optionalSchedulesEntity = schedulesService.getByUuidSchedules(tempTransaction.getUuid_transaction());
-//
-//                if (optionalSchedulesEntity.isPresent()) {
-//                    SchedulesEntity schedulesEntity = optionalSchedulesEntity.get();
-//                    int updatedLimits = schedulesEntity.getLimits() + 1;
-//
-//                    if (updatedLimits < 1 || updatedLimits > 30) {
-//                        String message = "Limit exceeded. Data not saved for TempTransaction with UUID: " + tempTransaction.getUuid_transaction();
-//                        log.info(message);
-//                        throw new Exception(message);
-//                    } else {
-//                        schedulesEntity.setLimits(updatedLimits);
-//                        schedulesEntities.add(schedulesEntity);
-//                        log.info(String.valueOf(schedulesEntities));
-//
-//                        List<TempTransactionEntity> savedTempTransactions = tempTransactionService.addTransaction(Collections.singletonList(tempTransaction));
-//                        TempTransactionEntity savedTempTransaction = savedTempTransactions.get(0);
-//                        tempTransaction.setUuid_transaction(savedTempTransaction.getUuid_transaction());
-//                    }
-//                }
-//            }
-//
-//            List<HistoryTransactionEntity> historyTransactions = new ArrayList<>();
-//            for (TempTransactionEntity savedTransaction : transactionEntities) {
-//                HistoryTransactionEntity historyTransaction = new HistoryTransactionEntity();
-//                historyTransaction.setUuid_history(savedTransaction.getUuid_transaction());
-//                historyTransactions.add(historyTransaction);
-//            }
-//            List<HistoryTransactionEntity> savedHistory = historyTransactionService.saveDataHistory(historyTransactions);
-//
-//            // Save schedulesEntities only if there are valid data
-//            if (!schedulesEntities.isEmpty()) {
-//                List<SchedulesEntity> savedLimitUp = schedulesService.saveDataLimit(schedulesEntities);
-//
-//                // Remove TempTransactionEntity entries for which the limit was exceeded
-//                transactionEntities.removeIf(tempTransaction -> {
-//                    for (SchedulesEntity schedulesEntity : savedLimitUp) {
-//                        if (tempTransaction.getUuid_transaction().equals(schedulesEntity.getUuid_schedules())) {
-//                            return false;
-//                        }
-//                    }
-//                    return true;
-//                });
-//            }
-//            log.info(String.valueOf(transactionEntities));
-//            return commonResponseGenerator.succsesResponse(transactionEntities, "Sukses Update Data");
-//        } catch (Exception e) {
-//            log.warn(String.valueOf(e));
-//            return commonResponseGenerator.failedResponse(e.getMessage());
-//        }
-//    }
-
-
-
+    @PreAuthorize("hasAuthority('ROLE_BUYER  ')")
     @PutMapping(value = "/cancelCheckout")
     @Operation(description = "Cancel Checkout")
     public CommonResponse<List<TempTransactionEntity>> cancelCheckout(@RequestBody List<CancelAndRefundCheckoutResponse> param) {
@@ -298,7 +234,7 @@ public class TempTransactionController {
         }
     }
 
-
+    @PreAuthorize("hasAuthority('ROLE_BUYER  ')")
     @PutMapping(value = "/refundCheckout")
     @Operation(description = "Refund Transaction")
     public CommonResponse<List<TempTransactionEntity>> refundCheckout(@RequestBody List<CancelAndRefundCheckoutResponse> param) {
