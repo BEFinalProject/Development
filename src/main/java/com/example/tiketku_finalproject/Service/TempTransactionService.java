@@ -87,4 +87,8 @@ public class TempTransactionService {
     private UUID generateUUID() {
         return UUID.randomUUID();
     }
+
+    public void truncateTempTransactionData(){
+        tempTransactionRepository.deleteAll();
+    }
 }

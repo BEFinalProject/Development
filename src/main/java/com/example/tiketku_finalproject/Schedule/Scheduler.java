@@ -17,8 +17,6 @@ public class Scheduler {
     private SchedulesRepository schedulesRepository;
     @Autowired
     private TempTransactionService tempTransactionService;
-    @Autowired
-    private HistoryTransactionService historyTransactionService;
 
     @Scheduled(cron = "0 0 0 * * *") // Menjadwalkan untuk dijalankan setiap pukul 00:00:00 sore hari
     public void updateScheduleData() {
@@ -33,8 +31,8 @@ public class Scheduler {
     }
 
     @Scheduled(cron = "0 0 0 * * *")
-    public void truncateHistory(){
-        historyTransactionService.truncateHistoryData();
+    public void truncateTempTransaction(){
+        tempTransactionService.truncateTempTransactionData();
     }
 }
 

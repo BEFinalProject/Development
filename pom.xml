@@ -87,6 +87,13 @@
 			<version>6.17.0</version>
 		</dependency>
 
+<!--		Rhino buat jasper-->
+		<dependency>
+			<groupId>org.mozilla</groupId>
+			<artifactId>rhino</artifactId>
+			<version>1.7.13</version>
+		</dependency>
+
 		<!--        configuration security-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

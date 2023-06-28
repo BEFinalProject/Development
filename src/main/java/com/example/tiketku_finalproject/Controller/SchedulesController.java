@@ -60,6 +60,7 @@ public class SchedulesController {
 
     @GetMapping(value = "/getTicket/{uuid_schedules}") //yang ada di dalam {} disamakan dengan
     @Operation(description = "Search Ticket Available By UUID Schedule")
+    //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public CommonResponse<List<SchedulesEntity>> searchTiketByUUID(@PathVariable UUID uuid_schedules){
         try {
             List<SchedulesEntity> schedules = schedulesService.searchByUuidSchedules(uuid_schedules);

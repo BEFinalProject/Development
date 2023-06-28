@@ -28,6 +28,10 @@ public class WebSecurityConfig{
 
     @Bean
     public UserDetailsService userDetailsService(){
+//        UserDetails admin = User.withUsername("diva").password("juan").roles("ADMIN").build();
+//        UserDetails user = User.withUsername("j").password("j").roles("USER").build();
+//        return new InMemoryUserDetailsManager(admin,user);
+        //atas ini kalo secara manual, yang bawah secara Database.
         return new UserInfoUserDetailsService();
     }
     @Bean
@@ -36,8 +40,9 @@ public class WebSecurityConfig{
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/City/**","/Routes/**","/Schedules/**","/TempTransaction/addTempTransaction","/Users/register","/Users/login","/swagger-ui/**","/v3/api-docs/**").permitAll()
-                .and().authorizeHttpRequests().requestMatchers("/Users/**","/HistoryTransaction/**","/TempTransaction/**","/Airplane/**","/Airport/**").authenticated().and().sessionManagement()
+                .requestMatchers("/City/**","/Routes/**","/Airplane/**","/Airport/**","/Schedules/**","/TempTransaction/**","/HistoryTransaction/**","/Users/**","/swagger-ui/**","/v3/api-docs/**").permitAll()
+//                .anyRequest().authenticated().and().httpBasic() formLogin()
+                .and().authorizeHttpRequests().requestMatchers("/City/findCityTicket","/Film/**","/Jadwal/**","/Report/**","/Transaction/**","/DataTransaction/**").authenticated().and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class).build();
     }

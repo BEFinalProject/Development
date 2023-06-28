@@ -12,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,14 +36,12 @@ public class HistoryTransactionController {
     @Autowired
     CommonResponseGenerator commonResponseGenerator;
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN  ')")
     @GetMapping(value = "/findAll")
     @Operation(description = "Get All History Data")
     public CommonResponse<List<HistoryTransactionEntity>> getAllHistory(){
         return commonResponseGenerator.succsesResponse(historyTransactionService.findAll(), "Show All History data");
     }
 
-    @PreAuthorize("hasAuthority('ROLE_BUYER  ')")
     @GetMapping(value = "/user/{uuid_user}")
     @Operation(description = "Show All Transaction Users ")
     public CommonResponse<List<HistoryTransactionEntity>> getHistory(@PathVariable UUID uuid_user){
@@ -62,7 +59,6 @@ public class HistoryTransactionController {
             return commonResponseGenerator.failedResponse(e.getMessage());
         }
     }
-    @PreAuthorize("hasAuthority('ROLE_BUYER  ')")
     @GetMapping(value = "/date/{departure_date}/{uuid_user}")
     @Operation(description = "Show All Transaction User By Date")
     public CommonResponse<List<HistoryTransactionEntity>> getHistory(@PathVariable LocalDate departure_date, @PathVariable UUID uuid_user){
@@ -79,7 +75,6 @@ public class HistoryTransactionController {
             return commonResponseGenerator.failedResponse(e.getMessage());
         }
     }
-    @PreAuthorize("hasAuthority('ROLE_BUYER  ')")
     @GetMapping(value = "/uuid/{uuid_user}/{uuid_history}")
     @Operation(description = "Show Specific User Transaction")
     public CommonResponse<List<HistoryTransactionEntity>> getHistory(@PathVariable UUID uuid_user, @PathVariable UUID uuid_history){
@@ -97,7 +92,6 @@ public class HistoryTransactionController {
             return commonResponseGenerator.failedResponse(e.getMessage());
         }
     }
-    @PreAuthorize("hasAuthority('ROLE_BUYER  ')")
     @GetMapping(value = "/total/{uuid_user}/{created_at}")
     @Operation(description = "Show Total Price And Total Passenger")
     public CommonResponse<List<TransactionSummaryResponse>> getPriceAndTotalPassenger(@PathVariable UUID uuid_user, @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime created_at) {
@@ -110,11 +104,20 @@ public class HistoryTransactionController {
             return commonResponseGenerator.failedResponse(e.getMessage());
         }
     }
-    @PreAuthorize("hasAuthority('ROLE_BUYER  ')")
+
     @GetMapping("/report/{uuid_history}")
     @Operation(description = "Generate Report")
 //    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public String generateReportbyID(@PathVariable UUID uuid_history) throws JRException, FileNotFoundException {
         return ticketService.printReportbyUuidHistory(uuid_history);
     }
+
+    /*@GetMapping("/report/{uuid_history}")
+    @Operation(description = "Generate Report")
+// @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    public String generateReportbyID(@PathVariable UUID uuid_history) throws JRException, FileNotFoundException {
+        return ticketService.generateTicketReport(uuid_history);
+//        return "Report generated successfully.";
+    }*/
+
 }
