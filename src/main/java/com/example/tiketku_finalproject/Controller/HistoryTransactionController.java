@@ -110,11 +110,4 @@ public class HistoryTransactionController {
             return commonResponseGenerator.failedResponse(e.getMessage());
         }
     }
-    @PreAuthorize("hasAuthority('ROLE_BUYER  ')")
-    @GetMapping("/report/{uuid_history}")
-    @Operation(description = "Generate Report")
-//    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public String generateReportbyID(@PathVariable UUID uuid_history) throws JRException, FileNotFoundException {
-        return ticketService.printReportbyUuidHistory(uuid_history);
-    }
 }

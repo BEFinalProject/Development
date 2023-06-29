@@ -10,6 +10,8 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.util.ResourceUtils;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.io.File;
 import java.util.HashMap;
@@ -21,17 +23,15 @@ public class TicketService {
     @Autowired
     HistoryTransactionRepository historyTransactionRepository;
 
-    public String printReportbyUuidHistory(UUID uuid_history) throws FileNotFoundException, JRException {
+    public JasperPrint generateTicket(UUID uuid_history) throws JRException, IOException {
         List<HistoryTransactionEntity> ticketEntity = historyTransactionRepository.findByUUIDHistory(uuid_history);
-        String path = "C:\\Users\\ARJ\\Downloads";
-        File file = ResourceUtils.getFile("classpath:TesJasper.jrxml");
-        JasperReport jasperReport= JasperCompileManager.compileReport(file.getAbsolutePath());
+        String reportPath = "classpath:TesJasper.jrxml";
+        InputStream reportFile = ResourceUtils.getURL(reportPath).openStream();
+        JasperReport jasperReport = JasperCompileManager.compileReport(reportFile);
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(ticketEntity);
-        Map<String,Object> parameters = new HashMap<>();
+        Map<String, Object> parameters = new HashMap<>();
         parameters.put("createBy", "Kelompok B1 Final Project Binar Academy KM 4");
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
-        JasperExportManager.exportReportToPdfFile(jasperPrint, path+"\\Ticket.pdf");
-
-        return "Report generated in " + path;
+        return jasperPrint;
     }
 }
