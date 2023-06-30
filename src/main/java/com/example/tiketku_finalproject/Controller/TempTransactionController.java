@@ -14,10 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Slf4j
 @RestController
@@ -34,6 +31,23 @@ public class TempTransactionController {
     @Autowired
     HistoryTransactionService historyTransactionService;
 
+    @GetMapping(value = "/findByUuid/{uuid_transaction}")
+    @Operation(description = "Find Details by UUID")
+    public CommonResponse<List<TempTransactionEntity>> findDetailsByUuid(@PathVariable UUID uuid_transaction) {
+        try {
+            List<TempTransactionEntity> tempTransactionEntities = tempTransactionService.getDetailsByUUid(uuid_transaction);
+            log.info(String.valueOf(tempTransactionEntities));
+
+            if(!tempTransactionEntities.isEmpty()) {
+                return commonResponseGenerator.succsesResponse(tempTransactionEntities,"Sukses Mencari Jadwal Transaction");
+            }else {
+                return commonResponseGenerator.succsesResponse(tempTransactionEntities, "Data tidak ditemukan");
+            }
+        }catch (Exception e) {
+            log.warn(String.valueOf(e));
+            return commonResponseGenerator.failedResponse(e.getMessage());
+        }
+    }
 
     @PostMapping(value = "/addTempTransaction")
     @Operation(description = "Add Transaction")
