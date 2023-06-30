@@ -27,6 +27,7 @@ public class AirplanesController {
     @PreAuthorize("hasAuthority('ROLE_ADMIN  ')")
     @PostMapping("/addAirplane")
     @Operation(description = "Adds a new Airplane To Database")
+    @CrossOrigin(origins = "*", maxAge=3600)
     public CommonResponse<AirplanesEntity> addAirports(@RequestBody AirplanesEntity param){
         try {
             AirplanesEntity airplaneEntity = airplanesService.addAirplane(param);
@@ -41,6 +42,7 @@ public class AirplanesController {
     @PreAuthorize("hasAuthority('ROLE_ADMIN  ')")
     @PutMapping("/updateAirplane")
     @Operation(description = "Update Airplane From Database")
+    @CrossOrigin(origins = "*", maxAge=3600)
     public CommonResponse<AirplanesEntity> updateAirport(@RequestBody AirplanesEntity param){
         try {
             AirplanesEntity airplaneEntity = airplanesService.updateAirplane(param);
@@ -55,6 +57,7 @@ public class AirplanesController {
     @PreAuthorize("hasAuthority('ROLE_ADMIN  ')")
     @DeleteMapping("/deleteAirplane/{airplane_id}")
     @Operation(description = "Delete Airplane From Database")
+    @CrossOrigin(origins = "*", maxAge=3600)
     public CommonResponse<AirplanesEntity> deleteAirport(@PathVariable String airplane_id){
         try{
             AirplanesEntity airplaneEntity = airplanesService.deleteAirplane(airplane_id);

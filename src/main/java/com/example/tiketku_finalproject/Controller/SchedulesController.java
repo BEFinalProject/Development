@@ -9,10 +9,7 @@ import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -33,6 +30,7 @@ public class SchedulesController {
 
     @GetMapping(value = "/findAll")
     @Operation(description = "Get All Schedules Data")
+    @CrossOrigin(origins = "*", maxAge=3600)
     //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public CommonResponse<List<SchedulesEntity>> findAllSchedules() {
         try{
@@ -46,6 +44,7 @@ public class SchedulesController {
 
     @GetMapping(value = "/findTiket/{departure_city}/{arrival_city}/{departure_date}/{passenger}")
     @Operation(description = "Search Ticket Available By Departure City, Arrival City, Departure Date And Total Passenger User Needed")
+    @CrossOrigin(origins = "*", maxAge=3600)
     public CommonResponse<List<ScheduleResponse>> searchTiket(@PathVariable String departure_city, @PathVariable String arrival_city,
                                                               @PathVariable LocalDate departure_date, @PathVariable Integer passenger) {
         try {
@@ -60,6 +59,7 @@ public class SchedulesController {
 
     @GetMapping(value = "/getTicket/{uuid_schedules}") //yang ada di dalam {} disamakan dengan
     @Operation(description = "Search Ticket Available By UUID Schedule")
+    @CrossOrigin(origins = "*", maxAge=3600)
     public CommonResponse<List<SchedulesEntity>> searchTiketByUUID(@PathVariable UUID uuid_schedules){
         try {
             List<SchedulesEntity> schedules = schedulesService.searchByUuidSchedules(uuid_schedules);
