@@ -23,7 +23,7 @@ public class TicketController {
     private TicketService ticketService;
 
     @GetMapping("/{uuid_history}")
-    @CrossOrigin(origins = "*", maxAge=3600)
+    @CrossOrigin(origins = "https://novel-tomatoes-production.up.railway.app", maxAge=3600)
     public ResponseEntity<byte[]> generateTicket(@PathVariable UUID uuid_history) throws JRException, IOException {
         JasperPrint jasperPrint = ticketService.generateTicket(uuid_history);
         byte[] pdfBytes = JasperExportManager.exportReportToPdf(jasperPrint);

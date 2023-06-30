@@ -37,7 +37,7 @@ public class HistoryTransactionController {
     @PreAuthorize("hasAuthority('ROLE_ADMIN  ')")
     @GetMapping(value = "/findAll")
     @Operation(description = "Get All History Data")
-    @CrossOrigin(origins = "*", maxAge=3600)
+    @CrossOrigin(origins = "https://novel-tomatoes-production.up.railway.app", maxAge=3600)
     public CommonResponse<List<HistoryTransactionEntity>> getAllHistory(){
         return commonResponseGenerator.succsesResponse(historyTransactionService.findAll(), "Show All History data");
     }
@@ -45,7 +45,7 @@ public class HistoryTransactionController {
     @PreAuthorize("hasAuthority('ROLE_BUYER  ')")
     @GetMapping(value = "/user/{uuid_user}")
     @Operation(description = "Show All Transaction Users ")
-    @CrossOrigin(origins = "*", maxAge=3600)
+    @CrossOrigin(origins = "https://novel-tomatoes-production.up.railway.app", maxAge=3600)
     public CommonResponse<List<HistoryTransactionEntity>> getHistory(@PathVariable UUID uuid_user){
         try {
             List<HistoryTransactionEntity> historyTransaction = historyTransactionService.searchHistoryUsers(uuid_user);
@@ -64,7 +64,7 @@ public class HistoryTransactionController {
     @PreAuthorize("hasAuthority('ROLE_BUYER  ')")
     @GetMapping(value = "/date/{departure_date}/{uuid_user}")
     @Operation(description = "Show All Transaction User By Date")
-    @CrossOrigin(origins = "*", maxAge=3600)
+    @CrossOrigin(origins = "https://novel-tomatoes-production.up.railway.app", maxAge=3600)
     public CommonResponse<List<HistoryTransactionEntity>> getHistory(@PathVariable LocalDate departure_date, @PathVariable UUID uuid_user){
         try {
             List<HistoryTransactionEntity> historyTransaction = historyTransactionService.searchHistoryByDateAndUUIDUsers(departure_date,uuid_user);
@@ -82,7 +82,7 @@ public class HistoryTransactionController {
     @PreAuthorize("hasAuthority('ROLE_BUYER  ')")
     @GetMapping(value = "/uuid/{uuid_user}/{uuid_history}")
     @Operation(description = "Show Specific User Transaction")
-    @CrossOrigin(origins = "*", maxAge=3600)
+    @CrossOrigin(origins = "https://novel-tomatoes-production.up.railway.app", maxAge=3600)
     public CommonResponse<List<HistoryTransactionEntity>> getHistory(@PathVariable UUID uuid_user, @PathVariable UUID uuid_history){
         try {
             List<HistoryTransactionEntity> historyTransaction = historyTransactionService.searchHistoryByUUIDUserAndHistory(uuid_user,uuid_history);
@@ -101,7 +101,7 @@ public class HistoryTransactionController {
     @PreAuthorize("hasAuthority('ROLE_BUYER  ')")
     @GetMapping(value = "/total/{uuid_user}/{created_at}")
     @Operation(description = "Show Total Price And Total Passenger")
-    @CrossOrigin(origins = "*", maxAge=3600)
+    @CrossOrigin(origins = "https://novel-tomatoes-production.up.railway.app", maxAge=3600)
     public CommonResponse<List<TransactionSummaryResponse>> getPriceAndTotalPassenger(@PathVariable UUID uuid_user, @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime created_at) {
         try {
             List<TransactionSummaryResponse> historyTransaction = historyTransactionService.SearchPriceAndTotalPassanger(uuid_user, created_at);

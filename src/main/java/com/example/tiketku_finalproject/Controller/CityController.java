@@ -30,7 +30,7 @@ public class CityController {
 
     @GetMapping(value = "/findAll")
     @Operation(description = "Get all cities data")
-    @CrossOrigin(origins = "*", maxAge=3600)
+    @CrossOrigin(origins = "https://novel-tomatoes-production.up.railway.app", maxAge=3600)
     //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public CommonResponse<List<CitiesEntity>> findAllCities(){
         try{

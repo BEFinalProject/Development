@@ -30,7 +30,7 @@ public class SchedulesController {
 
     @GetMapping(value = "/findAll")
     @Operation(description = "Get All Schedules Data")
-    @CrossOrigin(origins = "*", maxAge=3600)
+    @CrossOrigin(origins = "https://novel-tomatoes-production.up.railway.app", maxAge=3600)
     //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public CommonResponse<List<SchedulesEntity>> findAllSchedules() {
         try{
@@ -44,7 +44,7 @@ public class SchedulesController {
 
     @GetMapping(value = "/findTiket/{departure_city}/{arrival_city}/{departure_date}/{passenger}")
     @Operation(description = "Search Ticket Available By Departure City, Arrival City, Departure Date And Total Passenger User Needed")
-    @CrossOrigin(origins = "*", maxAge=3600)
+    @CrossOrigin(origins = "https://novel-tomatoes-production.up.railway.app", maxAge=3600)
     public CommonResponse<List<ScheduleResponse>> searchTiket(@PathVariable String departure_city, @PathVariable String arrival_city,
                                                               @PathVariable LocalDate departure_date, @PathVariable Integer passenger) {
         try {
@@ -59,7 +59,7 @@ public class SchedulesController {
 
     @GetMapping(value = "/getTicket/{uuid_schedules}") //yang ada di dalam {} disamakan dengan
     @Operation(description = "Search Ticket Available By UUID Schedule")
-    @CrossOrigin(origins = "*", maxAge=3600)
+    @CrossOrigin(origins = "https://novel-tomatoes-production.up.railway.app", maxAge=3600)
     public CommonResponse<List<SchedulesEntity>> searchTiketByUUID(@PathVariable UUID uuid_schedules){
         try {
             List<SchedulesEntity> schedules = schedulesService.searchByUuidSchedules(uuid_schedules);

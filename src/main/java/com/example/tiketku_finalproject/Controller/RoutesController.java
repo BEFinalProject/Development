@@ -29,7 +29,7 @@ public class RoutesController {
     @PreAuthorize("hasAuthority('ROLE_ADMIN  ')")
     @GetMapping(value = "/findAll")
     @Operation(description = "Get all routes data")
-    @CrossOrigin(origins = "*", maxAge=3600)
+    @CrossOrigin(origins = "https://novel-tomatoes-production.up.railway.app", maxAge=3600)
     //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public CommonResponse<List<RoutesEntity>> findAllRoutes(){
         try{
