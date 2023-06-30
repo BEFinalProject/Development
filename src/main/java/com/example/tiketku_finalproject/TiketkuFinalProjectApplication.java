@@ -26,6 +26,8 @@ public class TiketkuFinalProjectApplication {
 						.allowedOrigins(
 								"http://localhost:8080", //ini portnya sesuai dari railway
 								"http://localhost:8081",
+								"http://localhost:3000",
+								"http://localhost:3001",
 								"https://novel-tomatoes-production.up.railway.app",
 								"*");
 			}
