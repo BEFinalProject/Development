@@ -28,9 +28,11 @@ public class TiketkuFinalProjectApplication {
 								"http://localhost:8081",
 								"http://localhost:3000",
 								"http://localhost:3001",
-								"http://novel-tomatoes-production.up.railway.app",
 								"https://novel-tomatoes-production.up.railway.app",
-								"*");
+								"*")
+						.allowedMethods("*") // Izinkan semua metode HTTP
+						.allowedHeaders("*") // Izinkan semua header
+						.allowCredentials(true); // Izinkan pengiriman kredensial (cookies, auth headers)
 			}
 		};
 	}
