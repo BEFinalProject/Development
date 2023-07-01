@@ -1,2 +1,0 @@
-# Development
-Sudah Done
