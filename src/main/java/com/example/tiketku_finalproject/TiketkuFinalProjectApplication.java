@@ -1,5 +1,6 @@
 package com.example.tiketku_finalproject;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -17,17 +18,16 @@ public class TiketkuFinalProjectApplication {
 		SpringApplication.run(TiketkuFinalProjectApplication.class, args);
 	}
 
+	@Value("${allowed.origin}")
+	private String allowedOrigin;
+
 	@Bean
-	public WebMvcConfigurer webMvcConfigurer() {
+	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**")
-						.allowedOrigins(
-								"http://localhost:8080", //ini portnya sesuai dari railway
-								"http://localhost:8081",
-								"https://novel-tomatoes-production.up.railway.app",
-								"*");
+						.allowedOrigins("*");
 			}
 		};
 	}
