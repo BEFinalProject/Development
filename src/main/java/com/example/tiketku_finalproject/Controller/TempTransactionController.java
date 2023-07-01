@@ -37,6 +37,7 @@ public class TempTransactionController {
 
     @PostMapping(value = "/addTempTransaction")
     @Operation(description = "Add Transaction")
+    @CrossOrigin(origins = "*", maxAge = 3600)
     public CommonResponse<List<TempTransactionEntity>> addTransaction(@RequestBody List<TempAddTransactionResponse> param) {
         try {
             List<TempTransactionEntity> transactionEntities = new ArrayList<>();
@@ -123,6 +124,7 @@ public class TempTransactionController {
     @PreAuthorize("hasAuthority('ROLE_BUYER  ')")
     @PutMapping(value = "/unpaidCheckout")
     @Operation(description = "Unpaid Transaction")
+    @CrossOrigin(origins = "*", maxAge = 3600)
     public CommonResponse<List<TempTransactionEntity>> unpaidTransaction(@RequestBody List<CheckoutTransactionResponse> param) {
         try {
             List<TempTransactionEntity> tempTransactionList = new ArrayList<>();
@@ -157,6 +159,7 @@ public class TempTransactionController {
     @PreAuthorize("hasAuthority('ROLE_BUYER  ')")
     @PutMapping(value = "/paidCheckout")
     @Operation(description = "Cancel Checkout")
+    @CrossOrigin(origins = "*", maxAge = 3600)
     public CommonResponse<List<TempTransactionEntity>> paidCheckout(@RequestBody List<CancelAndRefundCheckoutResponse> param) {
         try {
             List<TempTransactionEntity> updatedTempTransactions = new ArrayList<>();
@@ -190,6 +193,7 @@ public class TempTransactionController {
     @PreAuthorize("hasAuthority('ROLE_BUYER  ')")
     @PutMapping(value = "/cancelCheckout")
     @Operation(description = "Cancel Checkout")
+    @CrossOrigin(origins = "*", maxAge = 3600)
     public CommonResponse<List<TempTransactionEntity>> cancelCheckout(@RequestBody List<CancelAndRefundCheckoutResponse> param) {
         try {
             List<TempTransactionEntity> updatedTempTransactions = new ArrayList<>();
@@ -237,6 +241,7 @@ public class TempTransactionController {
     @PreAuthorize("hasAuthority('ROLE_BUYER  ')")
     @PutMapping(value = "/refundCheckout")
     @Operation(description = "Refund Transaction")
+    @CrossOrigin(origins = "*", maxAge = 3600)
     public CommonResponse<List<TempTransactionEntity>> refundCheckout(@RequestBody List<CancelAndRefundCheckoutResponse> param) {
         try {
             List<TempTransactionEntity> resultList = new ArrayList<>();

@@ -51,6 +51,7 @@ public class UserController {
 
     @PostMapping(value = "/login")
     @Operation(description = "Login")
+    @CrossOrigin(origins = "*", maxAge = 3600)
     public CommonResponse<String> authenticateAndGetToken(@RequestBody AuthRequest authRequest){
         try{
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
@@ -75,6 +76,7 @@ public class UserController {
 
     @PostMapping("/register")
     @Operation(description = "Register")
+    @CrossOrigin(origins = "*", maxAge = 3600)
     public CommonRegisterResponse<UsersEntity> addUsers(@RequestBody RegisterRequest param) {
         try {
             UsersEntity regUser = new UsersEntity();
@@ -97,6 +99,7 @@ public class UserController {
     @PreAuthorize("hasAuthority('ROLE_BUYER  ')")
     @PutMapping("/resetPassword")
     @Operation(description = "Reset Password")
+    @CrossOrigin(origins = "*", maxAge = 3600)
     public CommonResponse<UsersEntity> validatePassword(@RequestBody ResetPasswordRequest resetPasswordRequest){
         try {
             UsersEntity userReset = new UsersEntity();
@@ -115,6 +118,7 @@ public class UserController {
     @PreAuthorize("hasAuthority('ROLE_BUYER  ')")
     @PutMapping(value = "/updateUser")
     @Operation(description = "Update User")
+    @CrossOrigin(origins = "*", maxAge = 3600)
     //@PreAuthorize("hasAuthority('ROLE_USERS')")
     public CommonResponse<UsersEntity> updateUser(@RequestBody UpdateUserResponse update){
         try {
@@ -138,6 +142,7 @@ public class UserController {
     @PreAuthorize("hasAuthority('ROLE_ADMIN  ')")
     @GetMapping()
     @Operation(description = "Search All Users")
+    @CrossOrigin(origins = "*", maxAge = 3600)
     //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public CommonResponse<ResponseEntity<List<UsersEntity>>> getAll(
             @RequestParam(defaultValue = "0")int pageNumber,
@@ -164,6 +169,7 @@ public class UserController {
     @PreAuthorize("hasAuthority('ROLE_ADMIN  ')")
     @GetMapping(value = "/findUser/{id_user}") //yang ada di dalam {} disamakan dengan
     @Operation(description = "Find Users By Id")
+    @CrossOrigin(origins = "*", maxAge = 3600)
     //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public CommonResponse<UsersEntity> getById(@PathVariable UUID id_user){ // yang ini "id_user"
         try {
@@ -182,6 +188,7 @@ public class UserController {
     @PreAuthorize("hasAuthority('ROLE_BUYER  ')")
     @DeleteMapping(value = "/deleteUser/{id_user}")
     @Operation(description = "Delete User By Id")
+    @CrossOrigin(origins = "*", maxAge = 3600)
     //@PreAuthorize("hasAuthority('ROLE_USERS')")
     public CommonResponse<UsersEntity> deleteUser(@PathVariable UUID id_user){
         try {
@@ -201,6 +208,7 @@ public class UserController {
     @PreAuthorize("hasAuthority('ROLE_BUYER  ')")
     @GetMapping(value = "/token")
     @Operation(description = "Show All Transaction Users")
+    @CrossOrigin(origins = "*", maxAge = 3600)
     public CommonResponse<UserSearchByTokenResponse> getToken(HttpServletRequest request) {
         try {
             String token = request.getHeader("token"); // Mengambil nilai header "token"

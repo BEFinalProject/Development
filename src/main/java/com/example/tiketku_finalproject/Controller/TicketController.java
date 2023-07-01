@@ -8,10 +8,7 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -26,6 +23,7 @@ public class TicketController {
     private TicketService ticketService;
 
     @GetMapping("/{uuid_history}")
+    @CrossOrigin(origins = "*", maxAge = 3600)
     public ResponseEntity<byte[]> generateTicket(@PathVariable UUID uuid_history) throws JRException, IOException {
         JasperPrint jasperPrint = ticketService.generateTicket(uuid_history);
         byte[] pdfBytes = JasperExportManager.exportReportToPdf(jasperPrint);
