@@ -27,7 +27,15 @@ public class TiketkuFinalProjectApplication {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**")
+<<<<<<< HEAD
 						.allowedOrigins("*");
+=======
+						.allowedOrigins(
+								"http://localhost:3000",
+								"http://localhost:3001",
+								"https://novel-tomatoes-production.up.railway.app",
+								"*");
+>>>>>>> cf7b15fe58d2269deb4ccaa547515209ba38ce22
 			}
 		};
 	}

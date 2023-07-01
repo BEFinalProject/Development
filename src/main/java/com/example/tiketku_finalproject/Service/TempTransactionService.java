@@ -29,6 +29,10 @@ public class TempTransactionService {
     @Autowired
     RoutesRepository routesRepository;
 
+    public List<TempTransactionEntity> getDetailsByUUid(UUID uuid_transaction){
+        return tempTransactionRepository.findByUUIDTransaction(uuid_transaction);
+    }
+
     public List<TempTransactionEntity> addTransaction(List<TempTransactionEntity> tempTransactions) {
         LocalDateTime currentDateTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")

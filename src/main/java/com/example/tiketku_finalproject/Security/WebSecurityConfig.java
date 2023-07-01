@@ -36,7 +36,7 @@ public class WebSecurityConfig{
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/Ticket/**","/City/**","/Routes/**","/Schedules/**","/TempTransaction/addTempTransaction","/Users/register","/Users/login","/swagger-ui/**","/v3/api-docs/**").permitAll()
+                .requestMatchers("/Ticket/**","/City/**","/Routes/**","/Schedules/**","/TempTransaction/addTempTransaction","/TempTransaction/findByUuid/{uuid_transaction}","/Users/register","/Users/login","/swagger-ui/**","/v3/api-docs/**").permitAll()
                 .and().authorizeHttpRequests().requestMatchers("/HistoryTransaction/**","/Users/**","/TempTransaction/**","/Airplane/**","/Airport/**").authenticated().and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class).build();
