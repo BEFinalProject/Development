@@ -8,7 +8,6 @@ import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,11 +25,9 @@ public class RoutesController {
     @Autowired
     CommonResponseGenerator commonResponseGenerator;
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN  ')")
     @GetMapping(value = "/findAll")
     @Operation(description = "Get all routes data")
     @CrossOrigin(origins = "*", maxAge = 3600)
-    //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public CommonResponse<List<RoutesEntity>> findAllRoutes(){
         try{
             log.info("Successfully found all routes");

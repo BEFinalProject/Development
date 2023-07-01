@@ -22,7 +22,7 @@ public class TiketkuFinalProjectApplication {
 	private String allowedOrigin;
 
 	@Bean
-	public WebMvcConfigurer corsConfigurer() {
+	public WebMvcConfigurer corsConfig() {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {

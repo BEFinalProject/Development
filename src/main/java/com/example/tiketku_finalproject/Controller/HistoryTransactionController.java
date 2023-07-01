@@ -12,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.FileNotFoundException;
@@ -34,7 +33,6 @@ public class HistoryTransactionController {
     @Autowired
     CommonResponseGenerator commonResponseGenerator;
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN  ')")
     @GetMapping(value = "/findAll")
     @Operation(description = "Get All History Data")
     @CrossOrigin(origins = "*", maxAge = 3600)
@@ -42,7 +40,6 @@ public class HistoryTransactionController {
         return commonResponseGenerator.succsesResponse(historyTransactionService.findAll(), "Show All History data");
     }
 
-    @PreAuthorize("hasAuthority('ROLE_BUYER  ')")
     @GetMapping(value = "/user/{uuid_user}")
     @Operation(description = "Show All Transaction Users ")
     @CrossOrigin(origins = "*", maxAge = 3600)
@@ -61,7 +58,6 @@ public class HistoryTransactionController {
             return commonResponseGenerator.failedResponse(e.getMessage());
         }
     }
-    @PreAuthorize("hasAuthority('ROLE_BUYER  ')")
     @GetMapping(value = "/date/{departure_date}/{uuid_user}")
     @Operation(description = "Show All Transaction User By Date")
     @CrossOrigin(origins = "*", maxAge = 3600)
@@ -79,7 +75,6 @@ public class HistoryTransactionController {
             return commonResponseGenerator.failedResponse(e.getMessage());
         }
     }
-    @PreAuthorize("hasAuthority('ROLE_BUYER  ')")
     @GetMapping(value = "/uuid/{uuid_user}/{uuid_history}")
     @Operation(description = "Show Specific User Transaction")
     @CrossOrigin(origins = "*", maxAge = 3600)
@@ -98,7 +93,6 @@ public class HistoryTransactionController {
             return commonResponseGenerator.failedResponse(e.getMessage());
         }
     }
-    @PreAuthorize("hasAuthority('ROLE_BUYER  ')")
     @GetMapping(value = "/total/{uuid_user}/{created_at}")
     @Operation(description = "Show Total Price And Total Passenger")
     @CrossOrigin(origins = "*", maxAge = 3600)

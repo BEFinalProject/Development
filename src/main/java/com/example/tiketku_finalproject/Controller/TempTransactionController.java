@@ -11,7 +11,6 @@ import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -121,8 +120,7 @@ public class TempTransactionController {
             return commonResponseGenerator.failedResponse(e.getMessage());
         }
     }
-    @PreAuthorize("hasAuthority('ROLE_BUYER  ')")
-    @PutMapping(value = "/unpaidCheckout")
+        @PutMapping(value = "/unpaidCheckout")
     @Operation(description = "Unpaid Transaction")
     @CrossOrigin(origins = "*", maxAge = 3600)
     public CommonResponse<List<TempTransactionEntity>> unpaidTransaction(@RequestBody List<CheckoutTransactionResponse> param) {
@@ -156,8 +154,7 @@ public class TempTransactionController {
             return commonResponseGenerator.failedResponse(e.getMessage());
         }
     }
-    @PreAuthorize("hasAuthority('ROLE_BUYER  ')")
-    @PutMapping(value = "/paidCheckout")
+        @PutMapping(value = "/paidCheckout")
     @Operation(description = "Cancel Checkout")
     @CrossOrigin(origins = "*", maxAge = 3600)
     public CommonResponse<List<TempTransactionEntity>> paidCheckout(@RequestBody List<CancelAndRefundCheckoutResponse> param) {
@@ -190,8 +187,7 @@ public class TempTransactionController {
         }
     }
 
-    @PreAuthorize("hasAuthority('ROLE_BUYER  ')")
-    @PutMapping(value = "/cancelCheckout")
+        @PutMapping(value = "/cancelCheckout")
     @Operation(description = "Cancel Checkout")
     @CrossOrigin(origins = "*", maxAge = 3600)
     public CommonResponse<List<TempTransactionEntity>> cancelCheckout(@RequestBody List<CancelAndRefundCheckoutResponse> param) {
@@ -238,8 +234,7 @@ public class TempTransactionController {
         }
     }
 
-    @PreAuthorize("hasAuthority('ROLE_BUYER  ')")
-    @PutMapping(value = "/refundCheckout")
+        @PutMapping(value = "/refundCheckout")
     @Operation(description = "Refund Transaction")
     @CrossOrigin(origins = "*", maxAge = 3600)
     public CommonResponse<List<TempTransactionEntity>> refundCheckout(@RequestBody List<CancelAndRefundCheckoutResponse> param) {

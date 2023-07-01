@@ -16,7 +16,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -96,7 +95,6 @@ public class UserController {
         }
     }
 
-    @PreAuthorize("hasAuthority('ROLE_BUYER  ')")
     @PutMapping("/resetPassword")
     @Operation(description = "Reset Password")
     @CrossOrigin(origins = "*", maxAge = 3600)
@@ -115,7 +113,6 @@ public class UserController {
         }
     }
 
-    @PreAuthorize("hasAuthority('ROLE_BUYER  ')")
     @PutMapping(value = "/updateUser")
     @Operation(description = "Update User")
     @CrossOrigin(origins = "*", maxAge = 3600)
@@ -139,7 +136,6 @@ public class UserController {
 
     }
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN  ')")
     @GetMapping()
     @Operation(description = "Search All Users")
     @CrossOrigin(origins = "*", maxAge = 3600)
@@ -166,7 +162,6 @@ public class UserController {
         }
     }
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN  ')")
     @GetMapping(value = "/findUser/{id_user}") //yang ada di dalam {} disamakan dengan
     @Operation(description = "Find Users By Id")
     @CrossOrigin(origins = "*", maxAge = 3600)
@@ -185,7 +180,6 @@ public class UserController {
     }
 
 
-    @PreAuthorize("hasAuthority('ROLE_BUYER  ')")
     @DeleteMapping(value = "/deleteUser/{id_user}")
     @Operation(description = "Delete User By Id")
     @CrossOrigin(origins = "*", maxAge = 3600)
@@ -205,7 +199,6 @@ public class UserController {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to delete User", e);
         }
     }
-    @PreAuthorize("hasAuthority('ROLE_BUYER  ')")
     @GetMapping(value = "/token")
     @Operation(description = "Show All Transaction Users")
     @CrossOrigin(origins = "*", maxAge = 3600)

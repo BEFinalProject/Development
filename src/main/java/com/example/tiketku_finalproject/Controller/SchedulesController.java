@@ -31,7 +31,6 @@ public class SchedulesController {
     @GetMapping(value = "/findAll")
     @Operation(description = "Get All Schedules Data")
     @CrossOrigin(origins = "*", maxAge = 3600)
-    //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public CommonResponse<List<SchedulesEntity>> findAllSchedules() {
         try{
             log.info("Successfully found all data for all schedules");
