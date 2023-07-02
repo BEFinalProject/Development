@@ -1,0 +1,6 @@
+2023-07-01T19:30:11.485+07:00  INFO 6256 --- [restartedMain] c.e.t.TiketkuFinalProjectApplication     : Starting TiketkuFinalProjectApplication using Java 17.0.2 with PID 6256 (E:\Intellij Project\Development-main\target\classes started by EnVyx in E:\Intellij Project\Development-main)
+2023-07-01T19:30:11.489+07:00  INFO 6256 --- [restartedMain] c.e.t.TiketkuFinalProjectApplication     : No active profile set, falling back to 1 default profile: "default"
+2023-07-01T19:30:19.664+07:00  INFO 6256 --- [restartedMain] c.e.t.TiketkuFinalProjectApplication     : Started TiketkuFinalProjectApplication in 8.624 seconds (process running for 9.483)
+2023-07-01T19:30:36.484+07:00  INFO 6256 --- [http-nio-8080-exec-1] c.e.t.Controller.UserController          : juan123@gmail.com
+2023-07-01T19:30:39.530+07:00  INFO 6256 --- [http-nio-8080-exec-2] c.e.t.Controller.UserController          : juan123@gmail.com
+2023-07-01T19:31:03.545+07:00  INFO 6256 --- [http-nio-8080-exec-4] c.e.t.Controller.RoutesController        : Successfully found all routes

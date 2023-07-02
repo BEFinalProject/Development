@@ -13,10 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Slf4j
 @RestController
@@ -120,7 +117,7 @@ public class TempTransactionController {
             return commonResponseGenerator.failedResponse(e.getMessage());
         }
     }
-        @PutMapping(value = "/unpaidCheckout")
+    @PutMapping(value = "/unpaidCheckout")
     @Operation(description = "Unpaid Transaction")
     @CrossOrigin(origins = "*", maxAge = 3600)
     public CommonResponse<List<TempTransactionEntity>> unpaidTransaction(@RequestBody List<CheckoutTransactionResponse> param) {
@@ -154,7 +151,7 @@ public class TempTransactionController {
             return commonResponseGenerator.failedResponse(e.getMessage());
         }
     }
-        @PutMapping(value = "/paidCheckout")
+    @PutMapping(value = "/paidCheckout")
     @Operation(description = "Cancel Checkout")
     @CrossOrigin(origins = "*", maxAge = 3600)
     public CommonResponse<List<TempTransactionEntity>> paidCheckout(@RequestBody List<CancelAndRefundCheckoutResponse> param) {
@@ -187,7 +184,7 @@ public class TempTransactionController {
         }
     }
 
-        @PutMapping(value = "/cancelCheckout")
+    @PutMapping(value = "/cancelCheckout")
     @Operation(description = "Cancel Checkout")
     @CrossOrigin(origins = "*", maxAge = 3600)
     public CommonResponse<List<TempTransactionEntity>> cancelCheckout(@RequestBody List<CancelAndRefundCheckoutResponse> param) {
@@ -234,7 +231,7 @@ public class TempTransactionController {
         }
     }
 
-        @PutMapping(value = "/refundCheckout")
+    @PutMapping(value = "/refundCheckout")
     @Operation(description = "Refund Transaction")
     @CrossOrigin(origins = "*", maxAge = 3600)
     public CommonResponse<List<TempTransactionEntity>> refundCheckout(@RequestBody List<CancelAndRefundCheckoutResponse> param) {
@@ -282,6 +279,24 @@ public class TempTransactionController {
         }
     }
 
+    @GetMapping(value = "/findByUuid/{uuid_transaction}")
+    @Operation(description = "Find Details by UUID")
+    @CrossOrigin(origins = "*", maxAge = 3600)
+    public CommonResponse<List<TempTransactionEntity>> findDetailsByUuid(@PathVariable UUID uuid_transaction) {
+        try {
+            List<TempTransactionEntity> tempTransactionEntities = tempTransactionService.getDetailsByUUid(uuid_transaction);
+            log.info(String.valueOf(tempTransactionEntities));
+
+            if (!tempTransactionEntities.isEmpty()) {
+                return commonResponseGenerator.succsesResponse(tempTransactionEntities, "Sukses Mencari Jadwal Transaction");
+            } else {
+                return commonResponseGenerator.succsesResponse(tempTransactionEntities, "Data tidak ditemukan");
+            }
+        } catch (Exception e) {
+            log.warn(String.valueOf(e));
+            return commonResponseGenerator.failedResponse(e.getMessage());
+        }
+    }
 
 
 }
