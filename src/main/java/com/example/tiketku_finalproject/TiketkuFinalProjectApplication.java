@@ -28,7 +28,16 @@ public class TiketkuFinalProjectApplication {
 		SpringApplication.run(TiketkuFinalProjectApplication.class, args);
 	}
 
-//	@Bean
+	@Bean
+	FirebaseMessaging firebaseMessaging() throws IOException {
+		GoogleCredentials googleCredentials = GoogleCredentials
+				.fromStream(new ClassPathResource("travelku-f952e-firebase-adminsdk-5ek0r-eec3d08890.json").getInputStream());
+		FirebaseOptions firebaseOptions = FirebaseOptions.builder()
+				.setCredentials(googleCredentials).build();
+		FirebaseApp app = FirebaseApp.initializeApp(firebaseOptions,"my-app");
+		return FirebaseMessaging.getInstance(app);
+
+	}
 //	FirebaseMessaging firebaseMessaging() throws IOException {
 //		GoogleCredentials googleCredentials = GoogleCredentials
 //				.fromStream(new ClassPathResource(firebaseConfiguration).getInputStream());
