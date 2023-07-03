@@ -19,8 +19,9 @@ public class FirebaseController {
     @Autowired
     FirebaseMessagingService firebaseMessagingService;
 
-    @PostMapping
+    @PostMapping(value = "/postNotification")
     public String sendNotificationByToken(@RequestBody NotificationMessage notificationMessage){
+        log.info("Received request to send notification with title: '{}' and body: '{}'", notificationMessage.getTitle(), notificationMessage.getBody());
         return firebaseMessagingService.sendNotificationByToken(notificationMessage);
     }
     @GetMapping

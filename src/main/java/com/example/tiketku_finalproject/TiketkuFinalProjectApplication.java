@@ -21,6 +21,9 @@ import java.io.IOException;
 @EnableTransactionManagement
 public class TiketkuFinalProjectApplication {
 
+	@Value("${app.firebase-configuration-file}")
+	private String firebaseConfiguration;
+
 	public static void main(String[] args) {
 		SpringApplication.run(TiketkuFinalProjectApplication.class, args);
 	}
@@ -28,7 +31,7 @@ public class TiketkuFinalProjectApplication {
 	@Bean
 	FirebaseMessaging firebaseMessaging() throws IOException {
 		GoogleCredentials googleCredentials = GoogleCredentials
-				.fromStream(new ClassPathResource("firebase-service-account.json").getInputStream());
+				.fromStream(new ClassPathResource(firebaseConfiguration).getInputStream());
 
 		FirebaseOptions firebaseOptions = FirebaseOptions.builder()
 				.setCredentials(googleCredentials).build();
