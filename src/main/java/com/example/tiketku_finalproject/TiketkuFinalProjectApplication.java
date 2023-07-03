@@ -21,24 +21,24 @@ import java.io.IOException;
 @EnableTransactionManagement
 public class TiketkuFinalProjectApplication {
 
-	@Value("${app.firebase-configuration-file}")
-	private String firebaseConfiguration;
+//	@Value("${app.firebase-configuration-file}")
+//	private String firebaseConfiguration;
 
 	public static void main(String[] args) {
 		SpringApplication.run(TiketkuFinalProjectApplication.class, args);
 	}
 
-	@Bean
-	FirebaseMessaging firebaseMessaging() throws IOException {
-		GoogleCredentials googleCredentials = GoogleCredentials
-				.fromStream(new ClassPathResource(firebaseConfiguration).getInputStream());
-
-		FirebaseOptions firebaseOptions = FirebaseOptions.builder()
-				.setCredentials(googleCredentials).build();
-
-		FirebaseApp app = FirebaseApp.initializeApp(firebaseOptions, "my-app");
-		return FirebaseMessaging.getInstance(app);
-	}
+//	@Bean
+//	FirebaseMessaging firebaseMessaging() throws IOException {
+//		GoogleCredentials googleCredentials = GoogleCredentials
+//				.fromStream(new ClassPathResource(firebaseConfiguration).getInputStream());
+//
+//		FirebaseOptions firebaseOptions = FirebaseOptions.builder()
+//				.setCredentials(googleCredentials).build();
+//
+//		FirebaseApp app = FirebaseApp.initializeApp(firebaseOptions, "my-app");
+//		return FirebaseMessaging.getInstance(app);
+//	}
 
 
 	@Value("${allowed.origin}")
