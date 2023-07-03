@@ -40,7 +40,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/Users/resetPassword", "/Users/updateUser", "/Users/deleteUser/{id_user}", "/Users/token", "/TempTransaction/unpaidCheckout", "/TempTransaction/paidCheckout", "/TempTransaction/cancelCheckout",
                         "/TempTransaction/refundCheckout", "/HistoryTransaction/user/{uuid_user}",
                         "/HistoryTransaction/date/{departure_date}/{uuid_user}", "/HistoryTransaction/uuid/{uuid_user}/{uuid_history}", "/HistoryTransaction/total/{uuid_user}/{created_at}", "/Ticket/{uuid_history}").hasRole("BUYER  ")
-                .requestMatchers("/Users/**", "/HistoryTransaction/**", "/TempTransaction/**", "/Schedules/**", "/City/**", "/swagger-ui/**", "/v3/api-docs/**","TempTransaction/findByUuid/{uuid_transaction}").permitAll()
+                .requestMatchers("/Users/**", "/HistoryTransaction/**", "/TempTransaction/**", "/Schedules/**", "/City/**", "/swagger-ui/**", "/v3/api-docs/**","/TempTransaction/findByUuid/{uuid_transaction}","/Notification/**").permitAll()
                 .anyRequest().permitAll();
 
         httpSecurity.authenticationProvider(authenticationProvider());
